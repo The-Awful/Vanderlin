@@ -114,6 +114,51 @@
 					src.visible_message("<span class='info'>The ingredients in the [src] fail to meld together at all...</span>")
 					playsound(src,'sound/misc/smelter_fin.ogg', 30, FALSE)
 
+/obj/machinery/light/rogue/cauldron/examine(mob/user)
+	. = ..()
+
+	if(user.mind)
+		if(HAS_TRAIT(user,TRAIT_LEGENDARY_ALCHEMIST))
+			if(ingredients.len)
+				var/list/attunement = list()
+				for(var/obj/item/ing in src.ingredients)
+					if(!istype(ing,/obj/item/alch))
+						continue
+					var/obj/item/alch/alching = ing
+					if(alching.major_pot != null)
+						if(attunement[alching.major_pot] != null)
+							attunement[alching.major_pot] += 3
+						else
+							attunement[alching.major_pot] = 3
+					if(alching.med_pot != null)
+						if(attunement[alching.med_pot] != null)
+							attunement[alching.med_pot] += 2
+						else
+							attunement[alching.med_pot] = 2
+					if(alching.minor_pot != null)
+						if(attunement[alching.minor_pot] != null)
+							attunement[alching.minor_pot] += 1
+						else
+							attunement[alching.minor_pot] = 1
+				sortTim(attunement,cmp=/proc/cmp_numeric_dsc,associative = 1)
+				var/i
+				for (i=1; i<=attunement.len; i++)
+					var/examined_reagent = attunement[i]
+					var/datum/alch_cauldron_recipe/found_reagent = new examined_reagent
+					if(attunement[attunement[i]] > 1)
+						if(attunement[attunement[i]] > 2)
+							if(attunement[attunement[i]] > 3)
+								if(attunement[attunement[i]] > 4)
+									. += span_notice(" The cauldron is ready to make a [found_reagent.recipe_name].")
+								else
+									. += span_notice(" The cauldron is nearly ready to make a [found_reagent.recipe_name].")
+							else
+								. += span_notice(" The cauldron is strongly attuned to making a [found_reagent.recipe_name].")
+						else
+							. += span_notice(" The cauldron is moderately attuned to making a [found_reagent.recipe_name].")
+					else
+						. += span_notice(" The cauldron is minorly attuned to making a [found_reagent.recipe_name].")
+
 /obj/machinery/light/rogue/cauldron/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/alch))
 		if(ingredients.len >= maxingredients)
