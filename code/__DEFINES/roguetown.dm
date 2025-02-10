@@ -1,11 +1,11 @@
 //used in various places
-#define ALL_RACES_LIST			list("human", "dwarf", "elf", "tiefling", "aasimar", "halforc", "orc", "zizombie")
+#define ALL_RACES_LIST			list("human", "rakshari", "dwarf", "elf", "tiefling", "aasimar", "halforc", "orc", "zizombie")
 
-#define ALL_PLAYER_RACES_BY_NAME		list("Humen", "Half-Elf", "Dark Elf", "Elf", "Dwarf","Tiefling", "Half-Orc", "Aasimar")
+#define ALL_PLAYER_RACES_BY_NAME		list("Humen", "Rakshari", "Half-Elf", "Dark Elf", "Elf", "Dwarf","Tiefling", "Half-Orc", "Aasimar")
 
 #define ALL_TEMPLE_PATRONS 		list(/datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/dendor, /datum/patron/divine/abyssor, /datum/patron/divine/necra, /datum/patron/divine/ravox, /datum/patron/divine/xylix, /datum/patron/divine/pestra, /datum/patron/divine/malum, /datum/patron/divine/eora)
 #define ALL_CLERIC_PATRONS 		list(/datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/dendor, /datum/patron/divine/abyssor, /datum/patron/divine/necra, /datum/patron/divine/ravox, /datum/patron/divine/xylix, /datum/patron/divine/pestra, /datum/patron/divine/malum, /datum/patron/divine/eora)
-#define ALL_TEMPLAR_PATRONS 	list(/datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/eora, /datum/patron/divine/necra, /datum/patron/divine/pestra, /datum/patron/divine/dendor, /datum/patron/divine/abyssor)
+#define ALL_TEMPLAR_PATRONS 	list(/datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/eora, /datum/patron/divine/necra, /datum/patron/divine/ravox, /datum/patron/divine/pestra, /datum/patron/divine/dendor, /datum/patron/divine/abyssor, /datum/patron/divine/malum)
 
 GLOBAL_LIST_INIT(curse_names, list())
 
@@ -137,12 +137,16 @@ GLOBAL_LIST_EMPTY(job_respawn_delays)
 #define CTAG_CHALLENGE 		"CAT_CHALLENGE"  	// Challenge class - Meant to be free for everyone
 #define CTAG_MERCENARY		"CAT_MERCENARY"
 #define CTAG_GARRISON		"CAT_GARRISON"
+#define CTAG_FORGARRISON	"CAT_FORGARRISON"
 #define CTAG_ADEPT			"CAT_ADEPT" // Used for Adept class selection
 #define CTAG_SQUIRE 		"CAT_SQUIRE" // Squire Love, Classes, as above.
 #define CTAG_HEIR			"CAT_HEIR"
 #define CTAG_HAND			"CAT_HAND"			// Hand class - Handles Hand class selector
 #define CTAG_CONSORT 		"CAT_CONSORT" 		// Consort classes
 #define CTAG_VETERAN		"CAT_VETERAN"		// Veteran class - Handles Veteran class selector
+#define CTAG_MENATARMS		"CAT_MENATARMS"
+#define CTAG_SERVANT		"CAT_SERVANT" 		// Servant class - 4 type of servant to fill in someplace.
+
 /*
 	Defines for the triumph buy datum categories
 */
@@ -361,7 +365,8 @@ BCLASS_CHOP, \
 BCLASS_BLUNT, \
 BCLASS_STAB, \
 BCLASS_BITE, \
-BCLASS_TWIST)
+BCLASS_TWIST, \
+BCLASS_SHOT)
 
 #define ALL_EXCEPT_STAB list(\
 BCLASS_CUT, \

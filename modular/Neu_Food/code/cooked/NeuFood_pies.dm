@@ -10,7 +10,7 @@
 /*	........   Pie making   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/piebottom
 	name = "pie bottom"
-	desc = "The foundation of the fantastical.."
+	desc = "The foundation of the fantastical."
 	icon_state = "piebottom"
 	w_class = WEIGHT_CLASS_NORMAL
 	eat_effect = /datum/status_effect/debuff/uncookedfood
@@ -59,8 +59,6 @@
 			L.Paralyze(20) //splat!
 		L.adjust_blurriness(1)
 		L.visible_message("<span class='warning'>[L] is hit by [src]!</span>", "<span class='danger'>I'm hit by [src]!</span>")
-	if(is_type_in_typecache(hit_atom, GLOB.creamable))
-		hit_atom.AddComponent(/datum/component/creamed, src)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/rogue/pie/CheckParts(list/parts_list)
@@ -112,7 +110,8 @@
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/pot
 	name = "pot pie"
 	desc = ""
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	slices_num = 6
+	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_FILLING)
 	tastes = list("succulent filling and crispy butterdough" = 1)
 	filling_color = "#755430"
 	foodtype = GRAIN | DAIRY | MEAT

@@ -9,7 +9,6 @@
 	var/obj/structure/ladder/up     //the ladder above this one
 	obj_flags = BLOCK_Z_OUT_DOWN
 	max_integrity = 0
-	has_reflection = FALSE
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
@@ -77,7 +76,7 @@
 
 	if(!is_ghost)
 		playsound(src, 'sound/foley/ladder.ogg', 100, FALSE)
-		if(!do_after(user, 30, TRUE, src))
+		if(!do_after(user, 3 SECONDS, src))
 			return
 
 	if(!is_ghost)

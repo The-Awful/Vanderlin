@@ -107,6 +107,7 @@
 		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> | "
 		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a> | "
 		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_LOOC]'><font color='[(muted & MUTE_LOOC)?"red":"blue"]'>LOOC</font></a>\]"
+		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_MEDITATE]'><font color='[(muted & MUTE_MEDITATE)?"red":"blue"]'>Meditate</font></a>\]"
 		body += "(<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)"
 
 	body += "<br><br>"
@@ -795,3 +796,50 @@
 	epicenter.pollute_turf(choice, amount_choice)
 	message_admins("[ADMIN_LOOKUPFLW(usr)] spawned pollution at [epicenter.loc] ([choice] - [amount_choice]).")
 	log_admin("[key_name(usr)] spawned pollution at [epicenter.loc] ([choice] - [amount_choice]).")
+
+/datum/admins/proc/anoint_priest(mob/living/carbon/human/M in GLOB.human_list)
+	set category = "GameMaster"
+	set name = "Anoint New Priest"
+	set desc = "Choose a new priest. The previous one will be excommunicated."
+	if(!check_rights())
+		return
+	if(!istype(M))
+		return
+	if(!M.mind)
+		return
+	if(M.mind.assigned_role == "Priest")
+		return
+	if(alert(usr, "Are you sure you want to anoint [M.real_name] as the new Priest?", "Confirmation", "Yes", "No") != "Yes")
+		return
+	var/datum/job/J = SSjob.GetJobType(/datum/job/roguetown/priest)
+	for(var/mob/living/carbon/human/HL in GLOB.human_list)
+		if(HL.mind)
+			var/found = FALSE
+			if(HL.mind.assigned_role == "Priest") //this really needs to use job datums in the future
+				HL.mind.assigned_role = "Towner"
+				found = TRUE
+			if(HL.job == "Priest")
+				HL.job = "Ex-Priest"
+				found = TRUE
+			if(found)
+				GLOB.excommunicated_players |= HL.real_name
+				HL.cleric?.excommunicate()
+				HL.verbs -= /mob/living/carbon/human/proc/coronate_lord
+				HL.verbs -= /mob/living/carbon/human/proc/churchexcommunicate
+				HL.verbs -= /mob/living/carbon/human/proc/churchcurse
+				HL.verbs -= /mob/living/carbon/human/proc/churchannouncement
+				J?.remove_spells(HL)
+
+	J?.add_spells(M)
+	M.mind.assigned_role = "Priest"
+	M.job = "Priest"
+	M.set_patron(/datum/patron/divine/astrata)
+	var/datum/devotion/cleric_holder/C = new /datum/devotion/cleric_holder(M, M.patron)
+	C.grant_spells_priest(M)
+	M.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
+	M.verbs |= /mob/living/carbon/human/proc/coronate_lord
+	M.verbs |= /mob/living/carbon/human/proc/churchexcommunicate
+	M.verbs |= /mob/living/carbon/human/proc/churchcurse
+	M.verbs |= /mob/living/carbon/human/proc/churchannouncement
+	removeomen(OMEN_NOPRIEST)
+	priority_announce("Astrata has anointed [M.real_name] as the new head of the Church of the Ten!", title = "Astrata Shines!", sound = 'sound/misc/bell.ogg')

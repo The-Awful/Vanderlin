@@ -44,12 +44,14 @@
 				return
 			var/turf/spawn_loc = pick(GLOB.underworldspiritspawns)
 			var/mob/living/carbon/spirit/O = new /mob/living/carbon/spirit(spawn_loc)
-			O.livingname = mob.name
+			O.livingname = mob.real_name
 			O.ckey = ckey
 			ADD_TRAIT(O, TRAIT_PACIFISM, TRAIT_GENERIC)
 			O.set_patron(prefs.selected_patron)
 			SSdeath_arena.add_fighter(O, mind?.last_death)
-			SSdroning.area_entered(get_area(O), O.client)
+
+			var/area/rogue/underworld/underworld = get_area(spawn_loc)
+			underworld.Entered(O, null)
 			verbs -= /client/proc/descend
 		if("No")
 			usr << "You have second thoughts."

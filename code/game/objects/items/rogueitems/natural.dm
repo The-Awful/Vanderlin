@@ -31,6 +31,9 @@
 
 /obj/item/natural/pre_attack_right(atom/A, mob/living/user, params)
 	if(istype(A, /obj/item/natural))
+		if(item_flags & IN_STORAGE)
+			to_chat(user, span_warning("It's hard to find [src] in my bag."))
+			return
 		var/obj/item/natural/B = A
 		if(bundletype && bundletype == B.bundletype)
 			if(!user.temporarilyRemoveItemFromInventory(src))
@@ -67,6 +70,9 @@
 	var/base_height = 32
 
 /obj/item/natural/bundle/attackby(obj/item/W, mob/living/user)
+	if(amount <= 0) //how did you manage to do this
+		qdel(src)
+		return
 	if(istype(W, /obj/item/natural/bundle))
 		var/obj/item/natural/bundle/B = W
 		if(src.stacktype == B.stacktype)
@@ -102,6 +108,9 @@
 /obj/item/natural/bundle/attack_right(mob/user)
 	if(item_flags & IN_STORAGE)
 		return
+	if(amount <= 0) //how did you manage to do this
+		qdel(src)
+		return
 	var/mob/living/carbon/human/H = user
 	switch(amount)
 		if(2)
@@ -111,6 +120,13 @@
 			var/obj/I = new stacktype(src.loc)
 			H.put_in_hands(F)
 			H.put_in_hands(I)
+			qdel(src)
+			return
+		if(1)
+			if(!user.temporarilyRemoveItemFromInventory(src))
+				return
+			var/obj/F = new stacktype(src.loc)
+			H.put_in_hands(F)
 			qdel(src)
 			return
 		else
@@ -125,6 +141,11 @@
 	. += span_notice("There are [amount] [stackname] in this bundle.")
 
 /obj/item/natural/bundle/pre_attack_right(atom/A, mob/living/user, params)
+	if(amount <= 0) //how did you manage to do this
+		qdel(src)
+		return
+	if(ismob(A))
+		return ..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(amount >= maxamount)
 		to_chat(user, span_warning("There's not enough space in [src]."))
@@ -134,7 +155,9 @@
 	for(var/obj/item/item in turflocation)
 		if(amount >= maxamount)
 			break
-		if(!do_after(user, 5, TRUE, src))
+		if(!istype(item, stacktype) && !istype(item, /obj/item/natural/bundle))
+			continue
+		if(!do_after(user, 5 DECISECONDS, src))
 			break
 		if(item.loc != turflocation)
 			continue

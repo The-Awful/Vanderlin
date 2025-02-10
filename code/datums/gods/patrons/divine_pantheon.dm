@@ -3,6 +3,20 @@
 	associated_faith = /datum/faith/divine_pantheon
 	t0 = /obj/effect/proc_holder/spell/invoked/lesser_heal
 
+/datum/patron/divine/can_pray(mob/living/follower)
+	//you can pray anywhere inside a church
+	if(istype(get_area(follower), /area/rogue/indoors/town/church))
+		return TRUE
+
+	for(var/obj/structure/fluff/psycross/cross in view(4, get_turf(follower)))
+		if(!cross.obj_broken)
+			return TRUE
+
+	to_chat(follower, span_danger("I need a nearby Pantheon Cross for my prayers to be heard..."))
+	return FALSE
+
+/* ----------------- */
+
 /datum/patron/divine/astrata
 	name = "Astrata"
 	domain = "Goddess of Order, the Sun Queen"
@@ -26,9 +40,9 @@
 	name = "Noc"
 	domain = "God of Knowledge, the Moon Prince"
 	desc = "Crafted from the helmet of Psydon, twin of Astrata. He gifted mankind divine wisdom."
-	flaws = "Close-minded, Vindictive, Haughty"
+	flaws = "Cynical, Isolationist, Unfiltered Honesty"
 	worshippers = "Magic Practitioners, Scholars, Scribes"
-	sins = "Ignorance, Burning Books, Rashness"
+	sins = "Suppressing Truth, Burning Books, Censorship"
 	boons = "You learn and teach apprentices slightly better."
 	added_traits = list(TRAIT_TUTELAGE)
 	t0 = /obj/effect/proc_holder/spell/invoked/lesser_heal
@@ -37,7 +51,7 @@
 	t3 = /obj/effect/proc_holder/spell/invoked/projectile/moondagger
 	confess_lines = list(
 		"NOC IS NIGHT!",
-		"NOC SEES ALL!",
+		"NOC SEES THE TRUTH!",
 		"I SEEK THE MYSTERIES OF THE MOON!",
 	)
 
@@ -109,6 +123,8 @@
 	added_traits = list(TRAIT_SHARPER_BLADES)
 	t0 = /obj/effect/proc_holder/spell/invoked/lesser_heal
 	t1 = /obj/effect/proc_holder/spell/self/call_to_arms
+	t2 = /obj/effect/proc_holder/spell/self/divine_strike
+	t3 = /obj/effect/proc_holder/spell/invoked/persistence
 	confess_lines = list(
 		"RAVOX IS JUSTICE!",
 		"THROUGH STRIFE, GRACE!",
@@ -126,6 +142,7 @@
 	added_traits = list(TRAIT_BLACKLEG)
 	t0 = /obj/effect/proc_holder/spell/invoked/lesser_heal
 	t1 = /obj/effect/proc_holder/spell/invoked/vicious_mimicry
+	t2 = /obj/effect/proc_holder/spell/invoked/wheel
 	confess_lines = list(
 		"ASTRATA IS MY LIGHT!",
 		"NOC IS NIGHT!",
@@ -149,7 +166,7 @@
 	boons = "You may consume rotten food without being sick."
 	added_traits = list(TRAIT_ROT_EATER)
 	t0 = /obj/effect/proc_holder/spell/invoked/diagnose
-	t1 = /obj/effect/proc_holder/spell/invoked/heal
+	t1 = /obj/effect/proc_holder/spell/invoked/lesser_heal
 	t2 = /obj/effect/proc_holder/spell/invoked/attach_bodypart
 	t3 = /obj/effect/proc_holder/spell/invoked/cure_rot
 	confess_lines = list(
@@ -168,7 +185,9 @@
 	boons = "You recover more energy when sleeping."
 	added_traits = list(TRAIT_BETTER_SLEEP)
 	t0 = /obj/effect/proc_holder/spell/invoked/lesser_heal
-	t1 = /obj/effect/proc_holder/spell/self/craft_buff
+	t1 = /obj/effect/proc_holder/spell/invoked/vigorouscraft
+	t2 = /obj/effect/proc_holder/spell/invoked/hammerfall
+	t3 = /obj/effect/proc_holder/spell/invoked/heatmetal
 	confess_lines = list(
 		"MALUM IS MY FORGE!",
 		"TRUE VALUE IS IN THE TOIL!",

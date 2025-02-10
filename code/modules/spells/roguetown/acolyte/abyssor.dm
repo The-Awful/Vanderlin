@@ -54,7 +54,7 @@
 	if(ismob(target))
 		var/mob/hit = target
 		if(hit.anti_magic_check())
-			hit.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
+			hit.visible_message(span_warning("[src] vanishes on contact with [target]!"))
 			return BULLET_ACT_BLOCK
 	if(!dropped)
 		dropped = new /obj/item/reagent_containers/food/snacks/fish/swordfish()
@@ -91,7 +91,7 @@
 	icon = 'icons/roguetown/weapons/64.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons/rogue_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/rogue_righthand.dmi'
-	icon_state = "pitchfork"
+	icon_state = "tridentgold"
 	pixel_y = -16
 	pixel_x = -16
 	inhand_x_dimension = 64
@@ -144,10 +144,12 @@
 /obj/item/fishingrod/abyssor_trident/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!is_embedded)
+		src.visible_message(span_warning("[src] dissipates into a splash of water!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		qdel(src)
 
 /obj/item/fishingrod/abyssor_trident/unembedded()
 	if(!QDELETED(src))
+		src.visible_message(span_warning("[src] dissipates into a splash of water!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		qdel(src)
 		return TRUE
 
@@ -160,7 +162,7 @@
 
 /obj/item/fishing/reel/abytrident
 	name = "trident shaft"
-	linehealth = 12
+	linehealth = 14
 	difficultymod = 1
 
 /obj/item/fishing/hook/abytrident
@@ -176,7 +178,8 @@
 	baitpenalty = 10
 	sizemod = list("tiny" = -2, "small" = -2, "normal" = -1, "large" = 1, "prize" = 1)
 	fishinglist = list(/obj/item/reagent_containers/food/snacks/fish/carp = 1,
-					/obj/item/reagent_containers/food/snacks/fish/eel = 1)
+					/obj/item/reagent_containers/food/snacks/fish/eel = 1,
+					/obj/item/reagent_containers/food/snacks/fish/shrimp = 1)
 	deeplist = list(/obj/item/reagent_containers/food/snacks/fish/angler = 1,
 					/obj/item/reagent_containers/food/snacks/fish/clownfish = 1)
 
@@ -206,17 +209,28 @@
 			target.cursed_freak_out()
 			return FALSE
 
-		if(target.mob_biotypes & MOB_UNDEAD) //knockdown + slow rather than direct damage
-			target.visible_message("<span class='danger'>[target] is drowned by turbulent tides!</span>", "<span class='userdanger'>I'm being drowned by turbulent tides!</span>")
-			target.adjustOxyLoss(100)
+		if(target.mob_biotypes & MOB_UNDEAD) //blasts with debuffs rather than direct damage
+			target.visible_message(span_danger("[target] is drowned by turbulent tides!"), span_userdanger("I'm being drowned by turbulent tides!"))
 			target.safe_throw_at(get_step(target, get_dir(user, target)), 1, 1, user, spin = TRUE, force = target.move_force)
+			target.adjustOxyLoss(80)
 			target.Knockdown(5)
 			target.Slowdown(60)
+			target.Dizzy(10)
+			target.blur_eyes(20)
+			target.emote("drown")
 			return ..()
 
-		target.visible_message("<span class='info'>A wave of replenishing water passes through [target]!</span>", "<span class='notice'>I'm engulfed in a wave of replenishing water!</span>")
+		target.visible_message(span_info("A wave of replenishing water passes through [target]!"), span_notice("I'm engulfed in a wave of replenishing water!"))
 		wash_atom(target, CLEAN_STRONG)
+		var/situational_bonus = 1
+		var/list/water = typesof(/turf/open/water) - typesof(/turf/open/water/acid)
+		// the more water around us, the more we heal, up to times two
+		for (var/turf/O in oview(3, user))
+			if(O.type in water)
+				situational_bonus = min(situational_bonus + 0.1, 2)
+		if(situational_bonus != 1)
+			to_chat(user, "Channeling Abyssor's power is easier in these conditions!")
 		if(target.blood_volume > 0)
-			target.blood_volume += BLOOD_VOLUME_SAFE
+			target.blood_volume += BLOOD_VOLUME_OKAY * situational_bonus
 		return ..()
 	return FALSE

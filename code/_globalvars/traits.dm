@@ -5,6 +5,7 @@ quirks have it's own panel so we don't need them here.
 */
 GLOBAL_LIST_INIT(traits_by_type, list(
 	/mob = list(
+		"TRAIT_INCAPACITATED" = TRAIT_INCAPACITATED,
 		"TRAIT_BLIND" = TRAIT_BLIND,
 		"TRAIT_MUTE" = TRAIT_MUTE,
 		"TRAIT_EMOTEMUTE " = TRAIT_EMOTEMUTE,
@@ -122,6 +123,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"Expert Herb Finder" = TRAIT_LEGENDARY_ALCHEMIST,
 		"Deceiving Meekness" = TRAIT_DECEIVING_MEEKNESS,
 		"Thieves Guild Member" = TRAIT_THIEVESGUILD,
+		"Engineering Goggles" = TRAIT_ENGINEERING_GOGGLES,
 		"Sharper Blades" = TRAIT_SHARPER_BLADES,
 		"Better Sleep" = TRAIT_BETTER_SLEEP,
 		"Exteroception" = TRAIT_EXTEROCEPTION,

@@ -29,7 +29,7 @@
 	. = ..()
 	user.visible_message("<span class='notice'>[user] begins deploying the bait...</span>", \
 						"<span class='notice'>I begin deploying the bait...</span>")
-	if(do_after(user, deploy_speed * (1/(user.mind?.get_skill_level(/datum/skill/craft/traps) + 1)), target = src)) //rogtodo hunting skill
+	if(do_after(user, deploy_speed * (1/(user.mind?.get_skill_level(/datum/skill/craft/traps) + 1)), src)) //rogtodo hunting skill
 		user.dropItemToGround(src, TRUE)
 		START_PROCESSING(SSobj, src)
 		name = "bait"
@@ -40,7 +40,7 @@
 	if(deployed)
 		user.visible_message("<span class='notice'>[user] begins gathering up the bait...</span>", \
 							"<span class='notice'>I begin gathering up the bait...</span>")
-		if(do_after(user, deploy_speed * (1/(user.mind?.get_skill_level(/datum/skill/craft/traps) + 1)), target = src)) //rogtodo hunting skill
+		if(do_after(user, deploy_speed * (1/(user.mind?.get_skill_level(/datum/skill/craft/traps) + 1)), src)) //rogtodo hunting skill
 			STOP_PROCESSING(SSobj, src)
 			name = initial(name)
 			deployed = 0
@@ -64,10 +64,17 @@
 				if(possible_targets.len)
 					return
 				possible_targets = list()
-				for(var/obj/structure/flora/roguetree/RT in range(7, src))
+				var/list/objects = range(7, src)
+				for(var/obj/structure/flora/roguetree/RT in objects)
 					if(can_see(src, RT, 7))
 						possible_targets += RT
-				for(var/obj/structure/flora/roguegrass/bush/RT in range(7, src))
+				for(var/obj/structure/flora/roguegrass/bush/RT in objects)
+					if(can_see(src, RT, 7))
+						possible_targets += RT
+				for(var/obj/structure/flora/roguegrass/bush_meagre/RT in objects)
+					if(can_see(src, RT, 7))
+						possible_targets += RT
+				for(var/obj/structure/chair/bench/ancientlog/RT in objects)
 					if(can_see(src, RT, 7))
 						possible_targets += RT
 				if(!possible_targets.len)

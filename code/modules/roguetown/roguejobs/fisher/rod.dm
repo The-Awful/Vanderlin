@@ -1,10 +1,10 @@
 /obj/item/fishingrod
 	force = 12
-	possible_item_intents = list(POLEARM_BASH, ROD_AUTO, ROD_CAST)
+	possible_item_intents = list(ROD_AUTO, ROD_CAST, POLEARM_BASH)
 	name = "fishing rod"
 	desc = ""
-	icon_state = "rod"
-	icon = 'modular/Neu_Farming/icons/farmtools.dmi'
+	icon_state = "rod1"
+	icon = 'icons/roguetown/weapons/tools.dmi'
 	sharpness = IS_BLUNT
 	wlength = 33
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_HIP
@@ -191,7 +191,7 @@
 	if(tag)
 		switch(tag)
 			if("gen")
-				return list("shrink" = 0.7,"sx" = -14,"sy" = 3,"nx" = 14,"ny" = 3,"wx" = -12,"wy" = 4,"ex" = 6,"ey" = 5,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+				return list("shrink" = 0.7,"sx" = -13,"sy" = 3,"nx" = 14,"ny" = 3,"wx" = -12,"wy" = 4,"ex" = 6,"ey" = 5,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
@@ -362,10 +362,12 @@
 	var/list/deepfishlist = list(/obj/item/reagent_containers/food/snacks/fish/angler = 1)
 	if(istype(targeted, /turf/open/water/swamp))
 		fishpicker = list(/obj/item/reagent_containers/food/snacks/fish/eel = 6,
-							/obj/item/reagent_containers/food/snacks/fish/carp = 2)
+							/obj/item/reagent_containers/food/snacks/fish/carp = 2,
+							/obj/item/reagent_containers/food/snacks/fish/shrimp = 1)
 	else if(istype(targeted, /turf/open/water/swamp/deep))
 		fishpicker = list(/obj/item/reagent_containers/food/snacks/fish/eel = 5,
-							/obj/item/reagent_containers/food/snacks/fish/carp = 3)
+							/obj/item/reagent_containers/food/snacks/fish/carp = 3,
+							/obj/item/reagent_containers/food/snacks/fish/shrimp = 1)
 		deepmod += 1
 	else if(istype(targeted, /turf/open/water/cleanshallow))
 		fishpicker = list(/obj/item/reagent_containers/food/snacks/fish/eel = 3,
@@ -485,7 +487,7 @@
 
 
 	var/sl = user.mind.get_skill_level(/datum/skill/labor/fishing) // User's skill level
-	var/ft = 120 //Time to get a catch, in ticks
+	var/fishing_time = 12 SECONDS //Time to get a catch, in ticks
 	var/fpp =  100 - (40 + (sl * 10)) // Fishing power penalty based on fishing skill level
 
 	var/caught = FALSE
@@ -498,8 +500,8 @@
 				user.visible_message("<span class='warning'>[user] casts a line!</span>", \
 									"<span class='notice'>I cast a line.</span>")
 				playsound(src.loc, 'sound/items/fishing_plouf.ogg', 100, TRUE)
-				ft -= (sl * 1 SECONDS) //every skill lvl is -1 seconds
-				if(do_after(user,ft, target = target))
+				fishing_time -= (sl * 1 SECONDS) //every skill lvl is -1 seconds
+				if(do_after(user, fishing_time, target))
 					if(baited)
 						var/bp = baited.baitpenalty // Penalty to fishing chance based on how good bait is. Lower is better.
 						var/fishchance = 100 // Total fishing chance, deductions applied below
@@ -512,10 +514,10 @@
 								fishchance -= bp // Deduct penalties from bait quality, if any
 								fishchance -= fpp // Deduct a penalty the lower our fishing level is (-0 at legendary)
 						if(prob(fishchance)) // Finally, roll the dice to see if we fish.
-							var/ow = 30 + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
+							var/opportunity_window = 3 SECONDS + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
 							to_chat(user, "<span class='notice'>Something tugs the line!</span>")
 							playsound(src.loc, 'sound/items/fishing_plouf.ogg', 100, TRUE)
-							if(!do_after(user,ow, target = target))
+							if(!do_after(user, opportunity_window, target))
 								var/mob/living/fisherman = user
 								var/boon = user.mind.get_learning_boon(/datum/skill/labor/fishing)
 								caught = TRUE
@@ -743,6 +745,10 @@
 	update_icon()
 
 /obj/item/fishingrod/fisher
+
+/obj/item/fishingrod/fisher/New()
+	. = ..()
+	icon_state = "rod[rand(1,3)]"
 
 /obj/item/fishingrod/fisher/Initialize()
 	. = ..()

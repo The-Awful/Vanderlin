@@ -53,19 +53,19 @@
 			for(var/listed_item in item)
 				if(!istype(attacking_item, listed_item))
 					continue
-				if(!do_after(user, short_cooktime, target = hosted_source))
+				if(!do_after(user, short_cooktime, hosted_source))
 					return
 				playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 30, TRUE, -1)
 				requirements[item]--
 				if(requirements[item] <= 0)
-					requirements -= item
+					requirements -= list(item) // See Remove() behavior documentation
 				return_value = TRUE
 				step_process(user, attacking_item)
 				qdel(attacking_item)
 				break
 
 		if(istype(attacking_item, item))
-			if(!do_after(user, short_cooktime, target = hosted_source))
+			if(!do_after(user, short_cooktime, hosted_source))
 				return
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 30, TRUE, -1)
 			requirements[item]--
@@ -103,11 +103,13 @@
 	var/datum/orderless_slapcraft/in_progress_slapcraft
 
 /mob/living/proc/try_orderless_slapcraft(obj/item/attacking_item, obj/item/attacked_object)
+	if(!isitem(attacked_object))
+		return list()
 	if(attacked_object.in_progress_slapcraft)
 		return attacked_object.in_progress_slapcraft.try_process_item(attacking_item, src)
 
 	if(!(attacked_object.type in GLOB.orderless_slapcraft_recipes))
-		return FALSE
+		return list()
 	var/list/recipes = GLOB.orderless_slapcraft_recipes[attacked_object.type]
 	var/list/passed_recipes = list()
 
@@ -117,12 +119,9 @@
 		passed_recipes |= recipe
 
 	if(!length(passed_recipes))
-		return FALSE
+		return list()
 
-	if(length(passed_recipes) == 1)
-		var/datum/orderless_slapcraft/recipe = passed_recipes[1]
-		attacked_object.in_progress_slapcraft = new recipe.type(null, attacked_object)
-		return attacked_object.in_progress_slapcraft.try_process_item(attacking_item, src)
+	return passed_recipes
 
 
 

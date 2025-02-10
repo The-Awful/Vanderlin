@@ -1,72 +1,3 @@
-/mob/living
-	var/mutable_appearance/reflective_mask
-	var/mutable_appearance/reflective_icon
-
-
-/mob/living/update_overlays()
-	. = ..()
-	update_reflection()
-
-/mob/living/update_icon()
-	. = ..()
-	update_reflection()
-
-/mob/living/proc/create_reflection()
-	//Add custom reflection mask
-	var/mutable_appearance/MA = new()
-	//appearance stuff
-	MA.appearance = appearance
-	if(render_target)
-		MA.render_source = render_target
-	MA.plane = MANUAL_REFLECTIVE_MASK_PLANE
-	reflective_mask = MA
-	add_overlay(MA)
-
-	//Add custom reflection image
-	var/mutable_appearance/MAM = new()
-	//appearance stuff
-	MAM.appearance = appearance
-	if(render_target)
-		MAM.render_source = render_target
-	MAM.plane = MANUAL_REFLECTIVE_PLANE
-	//transform stuff
-	var/matrix/n_transform = MAM.transform
-	n_transform.Scale(1, -1)
-	MAM.transform = n_transform
-	MAM.vis_flags = VIS_INHERIT_DIR
-	//filters
-	var/icon/I = icon('icons/turf/overlays.dmi', "partialOverlay")
-	I.Flip(NORTH)
-	MAM.filters += filter(type = "alpha", icon = I)
-	reflective_icon = MAM
-	add_overlay(reflective_icon)
-	update_vision_cone()
-
-/mob/living/carbon/human/dummy/update_reflection()
-	return
-
-/mob/living/proc/update_reflection()
-	if(!reflective_icon)
-		create_reflection()
-	cut_overlay(reflective_icon)
-	reflective_icon.appearance = appearance
-	if(render_target)
-		reflective_icon.render_source = render_target
-	reflective_icon.plane = MANUAL_REFLECTIVE_PLANE
-	reflective_icon.pixel_y -= 32
-	//transform stuff
-	var/matrix/n_transform = reflective_icon.transform
-	n_transform.Scale(1, -1)
-	reflective_icon.transform = n_transform
-	reflective_icon.vis_flags = VIS_INHERIT_DIR
-	//filters
-	var/icon/I = icon('icons/turf/overlays.dmi', "partialOverlay")
-	I.Flip(NORTH)
-	reflective_icon.filters += filter(type = "alpha", icon = I)
-	add_overlay(reflective_icon)
-	update_vision_cone()
-
-
 /mob/living/Initialize()
 	. = ..()
 	update_a_intents()
@@ -77,8 +8,6 @@
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
 	init_faith()
-
-	create_reflection()
 
 /mob/living/Destroy()
 	surgeries = null
@@ -109,6 +38,8 @@
 
 
 /mob/living/onZImpact(turf/T, levels)
+	if(HAS_TRAIT(src, TRAIT_NOFALLDAMAGE2))
+		return
 	if(HAS_TRAIT(src, TRAIT_NOFALLDAMAGE1))
 		if(levels <= 2)
 			return
@@ -245,6 +176,7 @@
 	if(m_intent == MOVE_INTENT_RUN && dir == get_dir(src, M))
 		if(isliving(M))
 			var/sprint_distance = sprinted_tiles
+			var/instafail = FALSE
 			toggle_rogmove_intent(MOVE_INTENT_WALK, TRUE)
 
 			var/mob/living/L = M
@@ -255,7 +187,8 @@
 			switch(sprint_distance)
 				// Point blank
 				if(0 to 1)
-					self_points -= 6
+					self_points -= 99
+					instafail = TRUE
 				// One to two tile between the people
 				if(2 to 3)
 					self_points -= 3
@@ -286,11 +219,15 @@
 			var/playsound = FALSE
 			if(apply_damage(15, BRUTE, "head", run_armor_check("head", "blunt", damage = 20)))
 				playsound = TRUE
-			if(L.apply_damage(15, BRUTE, "chest", L.run_armor_check("chest", "blunt", damage = 10)))
-				playsound = TRUE
+			if(!instafail)
+				if(L.apply_damage(15, BRUTE, "chest", L.run_armor_check("chest", "blunt", damage = 10)))
+					playsound = TRUE
 			if(playsound)
 				playsound(src, "genblunt", 100, TRUE)
-			visible_message(span_warning("[src] charges into [L]!"), span_warning("I charge into [L]!"))
+			if(!instafail)
+				visible_message(span_warning("[src] charges into [L]!"), span_warning("I charge into [L]!"))
+			else
+				visible_message(span_warning("[src] smashes facefirst into [L]!"), span_warning("I charge into [L] too early!"))
 			return TRUE
 
 	//okay, so we didn't switch. but should we push?
@@ -372,6 +309,8 @@
 /mob/living/carbon/proc/kick_attack_check(mob/living/L)
 	if(L == src)
 		return FALSE
+	if(!(src.mobility_flags & MOBILITY_STAND))
+		return TRUE
 	var/list/acceptable = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_L_ARM)
 	if( !(check_zone(L.zone_selected) in acceptable) )
 		to_chat(L, "<span class='warning'>I can't reach that.</span>")
@@ -582,10 +521,14 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_DEATHCOMA))
 		return FALSE
+	return ..()
+
+/mob/living/_pointed(atom/pointing_at)
 	if(!..())
 		return FALSE
-	visible_message("<span class='name'>[src]</span> points at [A].", "<span class='notice'>I point at [A].</span>")
-	return TRUE
+	log_message("points at [pointing_at]", LOG_EMOTE)
+	visible_message("<span class='infoplain'>[span_name("[src]")] points at [pointing_at].</span>", span_notice("You point at [pointing_at]."))
+
 
 /mob/living/verb/succumb(whispered as null, reaper as null)
 	set hidden = TRUE
@@ -601,8 +544,8 @@
 //			to_chat(src, "<span class='userdanger'>I have given up life and succumbed to death.</span>")
 		death()
 
-/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = TRUE, check_immobilized = FALSE, ignore_stasis = FALSE)
-	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IS_IN_STASIS(src)))
+/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = TRUE, ignore_stasis = FALSE)
+	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && restrained(ignore_grab)))
 		return TRUE
 
 /mob/living/canUseStorage()
@@ -664,7 +607,7 @@
 	if(resting)
 		if(!IsKnockdown() && !IsStun() && !IsParalyzed())
 			src.visible_message("<span class='notice'>[src] begins standing up.</span>")
-			if(move_after(src, 20, target = src))
+			if(do_after(src, 2 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE)))
 				set_resting(FALSE, FALSE)
 				return TRUE
 		else
@@ -682,7 +625,7 @@
 	if(resting)
 		if(!IsKnockdown() && !IsStun() && !IsParalyzed())
 			src.visible_message("<span class='info'>[src] begins standing up.</span>")
-			if(move_after(src, 20, target = src))
+			if(do_after(src, 2 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE)))
 				set_resting(FALSE, FALSE)
 		else
 			src.visible_message("<span class='warning'>[src] tries to stand up.</span>")
@@ -811,7 +754,6 @@
 	cure_nearsighted()
 	cure_blind()
 	cure_husk()
-	hallucination = 0
 	heal_overall_damage(INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
 	for(var/datum/wound/wound as anything in get_wounds())
 		if(admin_revive)
@@ -855,6 +797,7 @@
 		return FALSE
 	if(buckled || lying)
 		wallpressed = FALSE
+		update_wallpress_slowdown()
 		reset_offsets("wall_press")
 		return FALSE
 	var/turf/newwall = get_step(newloc, wallpressed)
@@ -984,6 +927,10 @@
 	set name = "Resist"
 	set category = "IC"
 	set hidden = 1
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_resist)))
+
+///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
+/mob/living/proc/execute_resist()
 	if(!can_resist() || surrendering)
 		return
 
@@ -1033,6 +980,7 @@
 		Stun(150)
 		src.visible_message("<span class='notice'>[src] yields!</span>")
 		playsound(src, 'sound/misc/surrender.ogg', 100, FALSE, -1)
+		toggle_cmode()
 		sleep(150)
 	surrendering = 0
 
@@ -1191,11 +1139,20 @@
 		to_chat(src, "<span class='warning'>Someone is grabbing my arm!</span>")
 		return
 
+	var/surrender_mod = 1
+	if(isliving(who))
+		var/mob/living/L = who
+		if(L.surrendering)
+			surrender_mod = 0.5
+
+	if(!who.Adjacent(src))
+		return
+
 	who.visible_message("<span class='warning'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='danger'>[src] tries to remove my [what.name].</span>", null, null, src)
 	to_chat(src, "<span class='danger'>I try to remove [who]'s [what.name]...</span>")
 	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
+	if(do_after(src, what.strip_delay * surrender_mod, who))
 		if(what && Adjacent(who))
 			if(islist(where))
 				var/list/L = where
@@ -1235,7 +1192,7 @@
 		who.visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>", \
 						"<span class='notice'>[src] tries to put [what] on you.</span>", null, null, src)
 		to_chat(src, "<span class='notice'>I try to put [what] on [who]...</span>")
-		if(do_mob(src, who, what.equip_delay_other))
+		if(do_after(src, what.equip_delay_other, who))
 			if(what && Adjacent(who) && what.mob_can_equip(who, src, final_where, TRUE, TRUE))
 				if(temporarilyRemoveItemFromInventory(what))
 					if(where_list)
@@ -1457,7 +1414,7 @@
 	var/stun = IsStun()
 	var/knockdown = IsKnockdown()
 	var/ignore_legs = get_leg_ignore()
-	var/canmove = !IsImmobilized() && !stun && conscious && !paralyzed && !buckled && (!stat_softcrit || !pulledby) && !chokehold && !IsFrozen() && !IS_IN_STASIS(src) && (has_arms || ignore_legs || has_legs)
+	var/canmove = !IsImmobilized() && !stun && conscious && !paralyzed && !buckled && (!stat_softcrit || !pulledby) && !chokehold && !IsFrozen() && (has_arms || ignore_legs || has_legs)
 	if(canmove)
 		mobility_flags |= MOBILITY_MOVE
 	else
@@ -1469,6 +1426,12 @@
 			stickstand = TRUE
 
 	var/canstand_involuntary = conscious && !stat_softcrit && !knockdown && !chokehold && !paralyzed && ( ignore_legs || ((has_legs >= 2) || (has_legs == 1 && stickstand)) ) && !(buckled && buckled.buckle_lying)
+
+	if(canstand_involuntary)
+		mobility_flags |= MOBILITY_CANSTAND
+	else
+		mobility_flags &= ~MOBILITY_CANSTAND
+
 	var/canstand = canstand_involuntary && !resting
 
 	var/should_be_lying = !canstand
@@ -1626,7 +1589,7 @@
 	user.visible_message("<span class='warning'>[user] starts trying to scoop up [src]!</span>", \
 					"<span class='danger'>I start trying to scoop up [src]...</span>", null, null, src)
 	to_chat(src, "<span class='danger'>[user] starts trying to scoop you up!</span>")
-	if(!do_after(user, 20, target = src))
+	if(!do_after(user, 2 SECONDS, src))
 		return FALSE
 	mob_pickup(user)
 	return TRUE
@@ -1724,16 +1687,14 @@
 	changeNext_move(CLICK_CD_EXHAUSTED)
 	if(m_intent != MOVE_INTENT_SNEAK)
 		visible_message("<span class='info'>[src] looks around.</span>")
-	var/looktime = 50 - (STAPER * 2)
-	if(do_after(src, looktime, target = src))
+	var/looktime = 5 SECONDS - (STAPER * 2)
+	if(do_after(src, looktime))
 		// var/huhsneak
 		SEND_GLOBAL_SIGNAL(COMSIG_MOB_ACTIVE_PERCEPTION,src)
-		for(var/mob/living/M in view(7,src))
-			if(M == src)
-				continue
+		for(var/mob/living/M in oview(7,src))
 			if(see_invisible < M.invisibility)
 				continue
-			if(M.mob_timers[MT_INVISIBILITY] > world.time) // Check if the mob is affected by the invisibility spell
+			if(HAS_TRAIT(M, TRAIT_IMPERCEPTIBLE)) // Check if the mob is affected by the invisibility spell
 				continue
 			var/probby = 3 * STAPER
 			if(M.mind)
@@ -1824,13 +1785,13 @@
 	if(T.can_see_sky())
 		do_time_change()
 
-	var/ttime = 10
+	var/ttime = 1 SECONDS
 	if(STAPER > 5)
-		ttime = 10 - (STAPER - 5)
+		ttime -= (STAPER - 5)
 		if(ttime < 0)
 			ttime = 0
 
-	if(!do_after(src, ttime, target = src))
+	if(!do_after(src, ttime))
 		return
 	reset_perspective(ceiling)
 	update_cone_show()
@@ -1888,15 +1849,15 @@
 
 	if(!OS)
 		return
-	var/ttime = 10
+	var/ttime = 1 SECONDS
 	if(STAPER > 5)
-		ttime = 10 - (STAPER - 5)
+		ttime -= (STAPER - 5)
 		if(ttime < 0)
 			ttime = 0
 
 	visible_message("<span class='info'>[src] looks down through [T].</span>")
 
-	if(!do_after(src, ttime, target = src))
+	if(!do_after(src, ttime))
 		return
 
 	changeNext_move(CLICK_CD_MELEE)

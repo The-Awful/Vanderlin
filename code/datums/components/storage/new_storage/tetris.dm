@@ -60,7 +60,7 @@
 	screen_pixel_y = 0
 	screen_start_x = 1
 	screen_start_y = 10
-	rustle_sound = TRUE
+	// rustle_sound = TRUE
 	/// Exactly what it sounds like, this makes it use the new RE4-like inventory system
 	var/grid = FALSE
 	var/grid_box_size
@@ -399,7 +399,6 @@
 			hide_from(living_viewer)
 	if(!worn_check_aggressive(parent, user, TRUE))
 		hide_from(user)
-	update_actions()
 
 /datum/component/storage/proc/worn_check(obj/item/storing, mob/user, no_message = FALSE)
 	. = TRUE

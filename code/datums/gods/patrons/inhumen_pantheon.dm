@@ -1,11 +1,23 @@
 /datum/patron/inhumen
 	name = null
 	associated_faith = /datum/faith/inhumen_pantheon
+
+	profane_words = list()
 	confess_lines = list(
 		"PSYDON AND HIS CHILDREN ARE THE DEMIURGE!",
 		"THE TEN ARE WORTHLESS COWARDS!",
 		"THE TEN ARE DECEIVERS!"
 	)
+
+/datum/patron/inhumen/can_pray(mob/living/follower)
+	for(var/obj/structure/fluff/psycross/cross in view(7, get_turf(follower)))
+		if(!cross.obj_broken)
+			to_chat(follower, span_danger("That accursed cross won't let me commune with the Forbidden One!"))
+			return FALSE
+
+	return TRUE
+
+/* ----------------- */
 
 /datum/patron/inhumen/zizo
 	name = "Zizo"
@@ -13,7 +25,7 @@
 	desc = "Snow Elf who slaughtered Her kind in ascension, conquered and remade the Dark Elven empires in Her name. She proves that any with will can achieve divinity... though at a cost."
 	flaws = "Hubris, Superiority, Fury"
 	worshippers = "Dark Elves, Aspirants, Necromancers"
-	sins = "Resistance, Deceit, Wastefulness"
+	sins = "Pearl-clutching, Moralism, Wastefulness"
 	boons = "You know other followers of Zizo when you see them."
 	added_traits = list(TRAIT_CABAL)
 	confess_lines = list(
@@ -67,6 +79,7 @@
 		"BAOTHA'S WHISPERS CALM MY MIND!",
 	)
 
+/// Maniac Patron
 /datum/patron/inhumen/graggar_zizo
 	name = "Graggazo"
 	domain = "Ascended God who slaughtered Her kind in ascension, the Dark Sini-Star of Unnatural Beasts, Forbidden Magic, and Unbridled Hatred."
@@ -79,6 +92,23 @@
 	confess_lines = list(
 		"WHERE AM I!",
 		"NONE OF THIS IS REAL!",
-		"WHO AM I WORSHIPPING!"
+		"WHO AM I WORSHIPPING?!"
 	)
 	non_faith = TRUE
+
+/datum/patron/inhumen/graggar_zizo/can_pray(mob/living/follower)
+	var/datum/antagonist/maniac/dreamer = follower.mind.has_antag_datum(/datum/antagonist/maniac)
+	if(!dreamer)
+		// if a non-maniac somehow gets this patron,
+		// something interesting should happen if they try to pray
+		return FALSE
+	return TRUE
+
+/datum/patron/inhumen/graggar_zizo/hear_prayer(mob/living/follower, message)
+	var/datum/antagonist/maniac/dreamer = follower.mind.has_antag_datum(/datum/antagonist/maniac)
+	if(!dreamer)
+		return FALSE
+
+	// something interesting should happen...
+
+	. = ..()

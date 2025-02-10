@@ -82,7 +82,7 @@
 	else
 		M.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>", \
 			"<span class='warning'>[user] attempts to feed you from [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, 3 SECONDS, M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
@@ -160,30 +160,12 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/blackpepper = 20)
 
-/obj/item/reagent_containers/food/condiment/milk
-	name = "space milk"
-	desc = ""
-	icon_state = "milk"
-	item_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
-	list_reagents = list(/datum/reagent/consumable/milk = 50)
-
 /obj/item/reagent_containers/food/condiment/flour
 	name = "flour sack"
 	desc = ""
 	icon_state = "flour"
 	item_state = "flour"
 	list_reagents = list(/datum/reagent/consumable/flour = 30)
-
-/obj/item/reagent_containers/food/condiment/soymilk
-	name = "soy milk"
-	desc = ""
-	icon_state = "soymilk"
-	item_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
-	list_reagents = list(/datum/reagent/consumable/soymilk = 50)
 
 /obj/item/reagent_containers/food/condiment/rice
 	name = "rice sack"

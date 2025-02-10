@@ -119,6 +119,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/profane/Move(n, direct)
 	return
 
+/mob/dead/observer/profane/canZMove(direction, turf/target)
+	return
+
 /mob/dead/observer/Initialize()
 	set_invisibility(GLOB.observer_default_invisibility)
 
@@ -408,10 +411,12 @@ Works together with spawning an observer, noted above.
 				mind.remove_antag_datum(/datum/antagonist/zombie)
 				return ..()
 			var/datum/antagonist/zombie/Z = mind.has_antag_datum(/datum/antagonist/zombie)
-			if(!Z.revived)
-				if(!(world.time % 5))
-					to_chat(src, "<span class='warning'>I'm preparing to walk again.</span>")
-				return
+			if(Z && get_playerquality(ckey) < 15)
+				can_reenter_corpse = FALSE
+			// if(!Z.revived)
+			// 	if(!(world.time % 5))
+			// 		to_chat(src, "<span class='warning'>I'm preparing to walk again.</span>")
+			// 	return
 	return ..()
 
 /mob/proc/scry_ghost()

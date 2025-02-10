@@ -17,7 +17,7 @@
 	. = ..()
 	if(isliving(targets[1]))
 		var/mob/living/target = targets[1]
-		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+		if(target.mob_biotypes & MOB_UNDEAD) //negative energy helps the undead
 			var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(user.zone_selected))
 			if(affecting)
 				if(affecting.heal_damage(50, 50))
@@ -266,9 +266,9 @@
 	charge_max = 15 SECONDS
 
 /obj/effect/proc_holder/spell/self/command_undead/cast(mob/user = usr)
-	..()
+	. = ..()
 
-	var/message = input("Speak to your minions!", "LICH") as text|null
+	var/message = input(user, "Speak to your minions!", "LICH") as text|null
 
 	if(!message)
 		return

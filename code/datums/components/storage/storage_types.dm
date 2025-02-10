@@ -37,6 +37,7 @@
 	collection_mode = COLLECT_ONE
 	insert_verb = "slide"
 	insert_preposition = "on"
+	rustle_sound = 'sound/items/gems (1).ogg'
 
 /datum/component/storage/concrete/roguetown/keyring/New(datum/P, ...)
 	. = ..()
@@ -75,6 +76,10 @@
 	screen_max_rows = 8
 	screen_max_columns = 4
 
+/datum/component/storage/concrete/roguetown/bin/New(datum/P, ...)
+	. = ..()
+	cant_hold = typecacheof(list(/obj/item/rogueweapon))
+
 /datum/component/storage/concrete/roguetown/sack
 	max_w_class = WEIGHT_CLASS_NORMAL
 	screen_max_rows = 5
@@ -84,6 +89,7 @@
 	dump_time = 0
 	allow_quick_gather = TRUE
 	allow_quick_empty = TRUE
+	allow_dump_out = TRUE
 	insert_preposition = "in"
 
 /datum/component/storage/concrete/roguetown/sack/meat/New(datum/P, ...)

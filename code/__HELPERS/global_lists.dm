@@ -36,8 +36,6 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
-
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -64,6 +62,7 @@
 
 	init_orderless_slapcraft_recipes()
 	init_crafting_repeatable_recipes()
+	setup_particles()
 
 	GLOB.emote_list = init_emote_list()
 
@@ -116,6 +115,13 @@
 			L+= path
 		return L
 
+/// Functions like init_subtypes, but uses the subtype's path as a key for easy access
+/proc/init_subtypes_w_path_keys(prototype, list/L)
+	if(!istype(L))
+		L = list()
+	for(var/path as anything in subtypesof(prototype))
+		L[path] = new path()
+	return L
 
 /proc/init_curse_names()
 	GLOB.curse_names = list()

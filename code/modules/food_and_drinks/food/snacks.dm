@@ -323,7 +323,7 @@ All foods are distributed among various categories. Use common sense.
 						if(!CH.grabbedby)
 							to_chat(user, "<span class='info'>[C.p_they(TRUE)] steals [C.p_their()] face from it.</span>")
 							return FALSE
-				if(!do_mob(user, M))
+				if(!do_after(user, 3 SECONDS, M))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
 //				M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", "<span class='danger'>[user] forces you to eat [src]!</span>")
@@ -443,7 +443,7 @@ All foods are distributed among various categories. Use common sense.
 	if(chopping_sound)
 		playsound(get_turf(user), 'modular/Neu_Food/sound/chopping_block.ogg', 60, TRUE, -1) // added some choppy sound
 	if(slice_batch)
-		if(!do_after(user, 30, target = src))
+		if(!do_after(user, 3 SECONDS, src))
 			return FALSE
 		var/reagents_per_slice = reagents.total_volume/slices_num
 		for(var/i in 1 to slices_num)
@@ -533,14 +533,14 @@ All foods are distributed among various categories. Use common sense.
 
 /obj/item/reagent_containers/food/snacks/attack_animal(mob/M)
 	if(isanimal(M))
-		if(isdog(M))
+		if(iscat(M))
 			var/mob/living/L = M
 			if(bitecount == 0 || prob(50))
 				M.emote("me", 1, "nibbles away at \the [src]")
 			bitecount++
 			L.taste(reagents) // why should carbons get all the fun?
 			if(bitecount >= 5)
-				var/sattisfaction_text = pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where \the [src] was")
+				var/sattisfaction_text = pick("burps from enjoyment", "meows for more", "looks at the area where \the [src] was")
 				if(sattisfaction_text)
 					M.emote("me", 1, "[sattisfaction_text]")
 				qdel(src)

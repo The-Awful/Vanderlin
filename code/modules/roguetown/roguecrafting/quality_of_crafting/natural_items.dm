@@ -1,7 +1,7 @@
 /datum/repeatable_crafting_recipe/survival
 	abstract_type = /datum/repeatable_crafting_recipe/survival
 
-/datum/repeatable_crafting_recipe/cloth
+/datum/repeatable_crafting_recipe/survival/cloth
 	name = "cloth"
 	requirements = list(
 		/obj/item/natural/fibers = 2
@@ -75,8 +75,8 @@
 		/obj/item/grown/log/tree/small = 1,
 	)
 
-	starting_atom = /obj/item/natural/stone
-	attacking_atom = /obj/item/grown/log/tree/small
+	attacking_atom = /obj/item/natural/stone
+	starting_atom = /obj/item/grown/log/tree/small
 	output = /obj/item/rogueweapon/axe/stone
 	craftdiff = 0
 	uses_attacking_atom = TRUE
@@ -88,9 +88,49 @@
 		/obj/item/grown/log/tree/stick = 1,
 	)
 
-	starting_atom = /obj/item/natural/stone
-	attacking_atom = /obj/item/grown/log/tree/stick
+	attacking_atom = /obj/item/natural/stone
+	starting_atom = /obj/item/grown/log/tree/stick
 	output = /obj/item/rogueweapon/knife/stone
+	craftdiff = 0
+	uses_attacking_atom = TRUE
+
+/datum/repeatable_crafting_recipe/survival/stone_hoe
+	name = "stone hoe"
+	requirements = list(
+		/obj/item/natural/stone = 2,
+		/obj/item/natural/fibers = 1,
+		/obj/item/grown/log/tree/stick = 1,
+	)
+
+	attacking_atom = /obj/item/natural/stone
+	starting_atom = /obj/item/grown/log/tree/stick
+	output = /obj/item/rogueweapon/hoe/stone
+	craftdiff = 0
+	uses_attacking_atom = TRUE
+
+/datum/repeatable_crafting_recipe/survival/stone_tongs
+	name = "stone tongs"
+	requirements = list(
+		/obj/item/natural/stone = 1,
+		/obj/item/grown/log/tree/stick = 2,
+	)
+
+	attacking_atom = /obj/item/natural/stone
+	starting_atom = /obj/item/grown/log/tree/stick
+	output = /obj/item/rogueweapon/tongs/stone
+	craftdiff = 0
+	uses_attacking_atom = TRUE
+
+/datum/repeatable_crafting_recipe/survival/stone_pick
+	name = "stone pick"
+	requirements = list(
+		/obj/item/natural/stone = 2,
+		/obj/item/grown/log/tree/stick = 1,
+	)
+
+	attacking_atom = /obj/item/natural/stone
+	starting_atom = /obj/item/grown/log/tree/stick
+	output = /obj/item/rogueweapon/pick/stone
 	craftdiff = 0
 	uses_attacking_atom = TRUE
 
@@ -101,8 +141,8 @@
 		/obj/item/rogueweapon/polearm/woodstaff = 1,
 	)
 
-	starting_atom = /obj/item/natural/stone
-	attacking_atom = /obj/item/rogueweapon/polearm/woodstaff
+	starting_atom = /obj/item/rogueweapon/polearm/woodstaff
+	attacking_atom = /obj/item/natural/stone
 	output = /obj/item/rogueweapon/polearm/spear/stone
 	craftdiff = 0
 	uses_attacking_atom = TRUE
@@ -134,7 +174,7 @@
 /datum/repeatable_crafting_recipe/survival/alchemy_mortar
 	name = "alchemical mortar"
 	requirements = list(
-		/obj/item/natural/stone = 3,
+		/obj/item/natural/stone = 2,
 	)
 
 	starting_atom = /obj/item/rogueweapon/knife
@@ -147,7 +187,7 @@
 /datum/repeatable_crafting_recipe/survival/pestle
 	name = "pestle"
 	requirements = list(
-		/obj/item/natural/stone = 2,
+		/obj/item/natural/stone = 1,
 	)
 
 	starting_atom = /obj/item/rogueweapon/knife
@@ -158,7 +198,7 @@
 	subtypes_allowed = TRUE
 
 /datum/repeatable_crafting_recipe/survival/bag
-	name = "bag"
+	name = "sack"
 	requirements = list(
 		/obj/item/natural/cloth = 1,
 		/obj/item/natural/fibers = 1,

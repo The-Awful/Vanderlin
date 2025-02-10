@@ -119,8 +119,12 @@
 	minor_pot = /datum/alch_cauldron_recipe/big_health_potion
 
 /obj/item/alch/magicdust
+<<<<<<< HEAD
 	name = "magicdust"
 	desc = "Every elemental dust blended together into one."
+=======
+	name = "magic dust"
+>>>>>>> cbe3c6c84f68346809eb5b6d96c9475045bcbe53
 	icon_state = "magic_runedust"
 	major_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	med_pot = /datum/alch_cauldron_recipe/lck_potion
@@ -233,7 +237,7 @@
 	minor_pot = /datum/alch_cauldron_recipe/int_potion
 
 /obj/item/alch/transisdust
-	name = "Transis dust"
+	name = "transis dust"
 	desc = "A long mix of herb that product a special powder."
 	icon_state = "transisdust"
 
@@ -339,7 +343,7 @@
 	icon_state = "hypericum"
 
 	major_pot = /datum/alch_cauldron_recipe/stamina_potion
-	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
+	med_pot = /datum/alch_cauldron_recipe/mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/antidote
 
 /obj/item/alch/benedictus
@@ -374,21 +378,38 @@
 	name = "feau dust"
 	result = list(/obj/item/alch/feaudust,
 				/obj/item/alch/feaudust)
-	reqs = list(/obj/item/alch/irondust = 2,
+	reqs = list(/obj/item/alch/irondust = 1,
 				/obj/item/alch/golddust = 1)
-	structurecraft = /obj/structure/table/wood
-	verbage = "mixes"
+	structurecraft = /obj/structure/table
+	verbage = "mix"
+	verbage_tp = "mixes"
 	craftsound = 'sound/foley/scribble.ogg'
 	skillcraft = /datum/skill/craft/alchemy
-	craftdiff = 0
+	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/alch/magicdust
 	name = "magic dust"
 	result = list(/obj/item/alch/magicdust)
 	reqs = list(/obj/item/alch/waterdust = 1, /obj/item/alch/firedust = 1,
 				/obj/item/alch/airdust = 1, /obj/item/alch/earthdust = 1)
-	structurecraft = /obj/structure/table/wood
-	verbage = "mixes"
+	structurecraft = /obj/structure/table
+	verbage = "mix"
+	verbage_tp = "mixes"
 	craftsound = 'sound/foley/scribble.ogg'
 	skillcraft = /datum/skill/craft/alchemy
-	craftdiff = 0
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/alch/transistus
+	name = "transis dust"
+	result = /obj/item/alch/transisdust
+	reqs = list(/obj/item/alch/artemisia = 1,
+		/obj/item/alch/benedictus = 1,
+		/obj/item/alch/hypericum = 1,
+		/obj/item/alch/salvia = 1,
+		/obj/item/alch/atropa = 1,
+		/obj/item/alch/taraxacum =1)
+	structurecraft = /obj/structure/table
+	verbage = "mix"
+	verbage_tp = "mixes"
+	skillcraft = /datum/skill/craft/alchemy
+	craftdiff = 4

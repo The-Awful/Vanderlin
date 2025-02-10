@@ -42,7 +42,7 @@
 
 /mob/living/carbon/spirit/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 //	coin_upkeep()	costly and not needed with the give_patron_toll failsafe if maze is drained
-	verbs += /mob/living/proc/mob_sleep
+	// verbs += /mob/living/proc/mob_sleep
 	verbs += /mob/living/proc/lay_down
 	ADD_TRAIT(src, TRAIT_PACIFISM, "status effects")
 	var/first_part = pick("Sorrowful", "Forlorn", "Regretful", "Piteous", "Rueful", "Dejected", "Desolate", "Mournful", "Melancholic", "Woeful")
@@ -106,6 +106,8 @@
 
 /mob/living/carbon/spirit/Stat()
 	..()
+	if(!client)
+		return
 	if(statpanel("Status"))
 		stat(null, "Intent: [a_intent]")
 		stat(null, "Move Mode: [m_intent]")
@@ -163,7 +165,7 @@
 	if(!mind_key)
 		return
 	for(var/mob/living/carbon/spirit/spirit in GLOB.spirit_list)
-		if((spirit.key == mind_key) || (spirit.mind?.key == mind_key))
+		if((ckey(spirit.key) == ckey(mind_key)) || (ckey(spirit.mind?.key) == ckey(mind_key)))
 			return spirit
 
 /mob/living/carbon/spirit/get_spirit()
@@ -178,19 +180,23 @@
 		return FALSE
 	var/success = FALSE
 	if(isliving(coffin))
-		success ||= pacify_corpse(coffin, user)
+		if(pacify_corpse(coffin, user))
+			success = TRUE
 	for(var/mob/living/corpse in coffin)
-		success ||= pacify_corpse(corpse, user)
+		if(pacify_corpse(corpse, user))
+			success = TRUE
 	for(var/obj/item/bodypart/head/head in coffin)
 		if(!head.brainmob)
 			continue
-		success ||= pacify_corpse(head.brainmob, user)
+		if(pacify_corpse(head.brainmob, user))
+			success = TRUE
 	//if this is a deep search, we will also search the contents of the container to pacify (EXCEPT MOBS, SINCE WE HANDLED THOSE)
 	if(deep)
 		for(var/atom/movable/stuffing in coffin)
 			if(isliving(stuffing) || istype(stuffing, /obj/item/bodypart/head))
 				continue
-			success ||= pacify_coffin(stuffing, user, deep, burial_pq = 0)
+			if(pacify_coffin(stuffing, user, deep, burial_pq = 0))
+				success = TRUE
 	if(success && burial_pq && user?.ckey)
 		adjust_playerquality(burial_pq, user.ckey)
 	return success
@@ -198,6 +204,7 @@
 /// Proc that finds the client associated with a given corpse and either 1. Lets ghosts skip Underworld and return to lobby 2. Gives spirits a toll
 /proc/pacify_corpse(mob/living/corpse, mob/user, coin_pq = PQ_GAIN_BURIAL_COIN)
 	if(QDELETED(corpse) || QDELETED(corpse.mind) || (corpse.stat != DEAD))
+		testing("pacify_corpse fail ([corpse.mind?.key || "no key"])")
 		return FALSE
 	// funeral + buried will make Journey to Underworld function as return to lobby
 	if(ishuman(corpse))
@@ -231,7 +238,14 @@
 	if(ghost)
 		var/user_acknowledgement = user ? user.real_name : "a mysterious force"
 		to_chat(ghost, span_rose("My soul finds peace buried in consecrated ground, thanks to [user_acknowledgement]."))
-		return TRUE
+		// return TRUE
 
-	testing("pacify_corpse fail ([corpse.mind?.key || "no key"])")
-	return FALSE
+	//It can reach here if you take too long to bury someone and they already respawn, but we still want to give the burial message
+	// testing("pacify_corpse fail ([corpse.mind?.key || "no key"])")
+	return TRUE
+
+/mob/living/carbon/spirit/show_inv(mob/user)
+	return
+
+/mob/living/carbon/spirit/toggle_move_intent()
+	m_intent = MOVE_INTENT_WALK

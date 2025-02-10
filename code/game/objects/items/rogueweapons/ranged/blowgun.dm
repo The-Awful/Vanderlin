@@ -1,21 +1,21 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blowgun
 	name = "blowgun"
-	desc = "A primitive tool used for hunting. To use most accuratly, hold your breath before releasing."
+	desc = "A primitive tool used for hunting. To use most accuratly, hold your breath for a moment before releasing."
 	icon = 'icons/roguetown/weapons/bows.dmi'
 	icon_state = "blowgun"
 	possible_item_intents = list(/datum/intent/shoot/blowgun, /datum/intent/arc/blowgun, INTENT_GENERIC)
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/blowgun
 	slot_flags = ITEM_SLOT_HIP
 	w_class = WEIGHT_CLASS_NORMAL
-	randomspread = 1
+	randomspread = 0
 	spread = 0
 	can_parry = FALSE
 	force = 6
 	var/cocked = FALSE
 	cartridge_wording = "dart"
 	fire_sound = 'sound/combat/Ranged/blowgun_shot.ogg'
-	associated_skill = /datum/skill/combat/bows
+	associated_skill =  /datum/skill/combat/bows
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blowgun/getonmobprop(tag)
 	. = ..()
@@ -37,7 +37,6 @@
 		var/num_unloaded = 0
 		for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
 			CB.forceMove(drop_location())
-//			CB.bounce_away(FALSE, NONE)
 			num_unloaded++
 		if (num_unloaded)
 			update_icon()
@@ -65,8 +64,8 @@
 		if(user.STAPER > 8)
 			BB.accuracy += (user.STAPER - 8) * 4 //each point of perception above 8 increases standard accuracy by 4.
 			BB.bonus_accuracy += (user.STAPER - 8) //Also, increases bonus accuracy by 1, which cannot fall off due to distance.
-			if(user.STAPER > 10) // Every point over 10 PER adds 10% damage
-				BB.damage = BB.damage * (user.STAPER / 10)
+		if(user.STAEND > 10) // Every point over 10 END adds 10% damage
+			BB.damage = BB.damage * (user.STAEND / 10)
 		BB.damage *= damfactor // Apply blow's inherent damage multiplier regardless of PER
 		BB.bonus_accuracy += (user.mind.get_skill_level(/datum/skill/combat/bows) * 5) //+5 accuracy per level in bows. Bonus accuracy will not drop-off.
 	. = ..()
@@ -90,7 +89,7 @@
 	start_empty = TRUE
 
 /datum/intent/shoot/blowgun
-	chargetime = 0.5
+	chargetime = 1
 	chargedrain = 1
 	charging_slowdown = 1
 	item_damage_type = "piercing"
@@ -102,14 +101,14 @@
 	return TRUE
 
 /datum/intent/shoot/blowgun/prewarning()
-	if(mastermob)
-		mastermob.visible_message(span_warning("[mastermob] takes a deep breath!"))
+	if(masteritem && mastermob)
+		mastermob.visible_message("<span class='warning'>[mastermob] takes a deep breath!</span>")
 
 /datum/intent/shoot/blowgun/get_chargetime()
 	if(mastermob && chargetime)
 		var/newtime = 0
 		newtime = newtime + 3 SECONDS
-		newtime = newtime - (mastermob.mind.get_skill_level(/datum/skill/combat/bows) * (5))- (mastermob.STAEND * 0.5) //endurance is strong lungs
+		newtime = newtime - (mastermob.mind.get_skill_level(/datum/skill/combat/bows) * (5))- (mastermob.STAEND * 0.5)
 		if(newtime > 0)
 			return newtime
 		else
@@ -117,10 +116,9 @@
 	return chargetime
 
 /datum/intent/arc/blowgun
-	chargetime = 0.5
+	chargetime = 1 SECONDS
 	chargedrain = 1
 	charging_slowdown = 1
-	item_damage_type = "piercing"
 
 /datum/intent/arc/blowgun/can_charge()
 	if(mastermob)
@@ -129,14 +127,21 @@
 	return TRUE
 
 /datum/intent/arc/blowgun/prewarning()
-	if(mastermob)
-		mastermob.visible_message(span_warning("[mastermob] takes a deep breath!"))
+	if(masteritem && mastermob)
+		mastermob.visible_message("<span class='warning'>[mastermob] takes a deep breath!</span>")
 
 /datum/intent/arc/blowgun/get_chargetime()
 	if(mastermob && chargetime)
 		var/newtime = 0
-		newtime = newtime + 3 SECONDS
-		newtime = newtime - (mastermob.mind.get_skill_level(/datum/skill/combat/bows) * (5))- (mastermob.STAEND * 0.5) //endurance is strong lungs
+		//skill block
+		newtime = newtime + 10
+		newtime = newtime - (mastermob.mind.get_skill_level(/datum/skill/combat/bows) * (10/6))
+		//end block //rtd replace 10 with drawdiff on bows that are hard and scale end more (10/20 = 0.5)
+		newtime = newtime + 10
+		newtime = newtime - (mastermob.STAEND * (10/20))
+		//per block
+		newtime = newtime + 20
+		newtime = newtime - (mastermob.STAPER * 1) //20/20 is 1
 		if(newtime > 0)
 			return newtime
 		else

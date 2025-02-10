@@ -79,7 +79,7 @@
 /datum/supply_pack/rogue/tools/hammer
 	name = "Hammer"
 	cost = 20
-	contains = /obj/item/rogueweapon/hammer
+	contains = /obj/item/rogueweapon/hammer/iron
 
 /datum/supply_pack/rogue/tools/shovel
 	name = "Shovel"
@@ -191,3 +191,18 @@
 	name = "Set of Surgical Tools"
 	cost = 100
 	contains = /obj/item/storage/backpack/rogue/satchel/surgbag
+
+/datum/supply_pack/rogue/tools/glassware_set
+	name = "Set of Glassware Cups"
+	cost = 34 // These glasses are really expensive
+	contains = list(/obj/item/reagent_containers/glass/cup/glassware, /obj/item/reagent_containers/glass/cup/glassware, /obj/item/reagent_containers/glass/cup/glassware)
+
+/datum/supply_pack/rogue/tools/glassware_set
+	name = "Set of Glassware Wine Glasses"
+	cost = 34 // These glasses are really expensive
+	contains = list(/obj/item/reagent_containers/glass/cup/glassware/wineglass, /obj/item/reagent_containers/glass/cup/glassware/wineglass, /obj/item/reagent_containers/glass/cup/glassware/wineglass)
+
+/datum/supply_pack/rogue/tools/glassware_set
+	name = "Set of Glassware Shot Glasses"
+	cost = 28 // These glasses are really expensive
+	contains = list(/obj/item/reagent_containers/glass/cup/glassware/shotglass, /obj/item/reagent_containers/glass/cup/glassware/shotglass, /obj/item/reagent_containers/glass/cup/glassware/shotglass,)

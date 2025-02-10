@@ -1231,7 +1231,7 @@
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town/manor)
 "eA" = (
-/obj/structure/fluff/walldeco/rpainting{
+/obj/structure/fluff/walldeco/painting/skull{
 	pixel_x = -32
 	},
 /obj/structure/table/wood{
@@ -1764,7 +1764,7 @@
 /area/rogue/indoors/town/bath)
 "gx" = (
 /obj/structure/closet/crate/roguecloset,
-/obj/item/quiver/bolts,
+/obj/item/ammo_holder/quiver/bolts,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison)
 "gy" = (
@@ -4263,7 +4263,7 @@
 /obj/structure/table/wood{
 	icon_state = "longtable"
 	},
-/obj/item/quiver/arrows,
+/obj/item/ammo_holder/quiver/arrows,
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "weird1"
 	},
@@ -5198,7 +5198,7 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town)
 "tc" = (
-/obj/structure/fluff/walldeco/rpainting{
+/obj/structure/fluff/walldeco/painting/skull{
 	pixel_y = 32
 	},
 /turf/open/floor/rogue/tile{
@@ -5472,7 +5472,7 @@
 	dir = 8
 	},
 /obj/item/candle/yellow/lit,
-/obj/structure/fluff/walldeco/rpainting/crown{
+/obj/structure/fluff/walldeco/painting/crown{
 	pixel_x = 32
 	},
 /turf/open/floor/rogue/woodturned,
@@ -7089,7 +7089,7 @@
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/town/tavern)
 "An" = (
-/obj/structure/fluff/walldeco/rpainting/forest{
+/obj/structure/fluff/walldeco/painting/castle{
 	pixel_x = -32
 	},
 /turf/open/floor/rogue/wood,
@@ -8207,7 +8207,7 @@
 /turf/closed/wall/mineral/rogue/stone/moss,
 /area/rogue/indoors/town/manor)
 "Ex" = (
-/obj/structure/fluff/walldeco/rpainting/crown{
+/obj/structure/fluff/walldeco/painting/crown{
 	pixel_x = -32
 	},
 /obj/effect/landmark/start/squire{
@@ -8942,7 +8942,7 @@
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town/dwarfin)
 "Hr" = (
-/obj/structure/fluff/walldeco/rpainting/forest{
+/obj/structure/fluff/walldeco/painting/castle{
 	pixel_x = 32
 	},
 /turf/open/floor/carpet/royalblack,
@@ -11137,7 +11137,7 @@
 /area/rogue/under/town/basement)
 "Ul" = (
 /obj/structure/closet/crate/chest,
-/obj/item/quiver/bolts,
+/obj/item/ammo_holder/quiver/bolts,
 /turf/open/floor/rogue/tile{
 	icon_state = "chess"
 	},
@@ -11858,7 +11858,7 @@
 /area/rogue/indoors/town/garrison)
 "XV" = (
 /obj/structure/closet/crate/roguecloset,
-/obj/item/quiver/arrows,
+/obj/item/ammo_holder/quiver/arrows,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison)
 "XX" = (

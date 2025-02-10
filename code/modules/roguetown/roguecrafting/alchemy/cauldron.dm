@@ -141,8 +141,7 @@
 						else
 							attunement[alching.minor_pot] = 1
 				sortTim(attunement,cmp=/proc/cmp_numeric_dsc,associative = 1)
-				var/i
-				for (i=1; i<=attunement.len; i++)
+				for (var/i=1; i<=attunement.len; i++)
 					var/examined_reagent = attunement[i]
 					var/datum/alch_cauldron_recipe/found_reagent = new examined_reagent
 					if(attunement[attunement[i]] > 1)

@@ -25,6 +25,7 @@
 #define TRAIT_INHUMANE_ANATOMY			"Inhumen Anatomy" //can't wear hats and shoes
 #define TRAIT_NASTY_EATER 				"Inhumen Digestion" //can eat rotten food, organs, poison berries, and drink murky water
 #define TRAIT_NOFALLDAMAGE1 		"Minor Fall Damage Immunity"
+#define TRAIT_NOFALLDAMAGE2 		"Total	 Fall Damage Immunity"
 #define TRAIT_DEATHSIGHT "Veiled Whispers" // Is notified when a player character dies, but not told exactly where or how.
 #define TRAIT_CYCLOPS_LEFT				"Cyclops (Left)" //poked left eye
 #define TRAIT_CYCLOPS_RIGHT				"Cyclops (Right)" //poked right eye
@@ -43,6 +44,7 @@
 #define TRAIT_LIGHT_STEP				"Light Step" //Can't trigger /obj/structure/trap/'s
 #define TRAIT_THIEVESGUILD				"Thieves Guild Member"
 #define TRAIT_MOB_FIRE_IMMUNE			"Fire Immune" //Just says no to fire_act()
+#define TRAIT_ENGINEERING_GOGGLES		"Engineering Goggles"
 #define TRAIT_SEEPRICES				    "Golden Blood" //See prices
 
 // Divine patron trait bonuses:
@@ -80,11 +82,12 @@
 #define TRAIT_IWASUNZOMBIFIED "iwasunzombified" //prevents PQ gain from curing a zombie twice
 #define TRAIT_ZIZOID_HUNTED "zizoidhunted" // Used to signal character has been marked by death by the Zizoid cult
 #define TRAIT_LEPROSY "Leprosy"
-
+#define TRAIT_SCHIZO_FLAW "Schizophrenic"
 
 // JOB RELATED TRAITS
 
 #define TRAIT_MALUMFIRE "Professional Smith"
+#define TRAIT_CRATEMOVER "Crate Mover"
 
 // PATRON CURSE TRAITS
 #define TRAIT_CURSE "Curse" //source
@@ -128,7 +131,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_KNEESTINGER_IMMUNITY = "I am immune to the shock of kneestingers.",
 	TRAIT_INHUMANE_ANATOMY = "My anatomy is inhumen, preventing me from wearing hats and shoes.",
 	TRAIT_NASTY_EATER = span_dead("I can eat bad food, and water that would be toxic to humen will not affect me."),
-	TRAIT_NOFALLDAMAGE1 = span_warning("I can easily handle minor falls."),
+	TRAIT_NOFALLDAMAGE1 = span_info("I can easily handle minor falls."),
+	TRAIT_NOFALLDAMAGE2 = span_info("I can handle a fall from any height."),
 	TRAIT_ROT_EATER = span_necrosis("I can eat rotten food."),
 	TRAIT_ORGAN_EATER = span_bloody("I can eat organs and raw flesh."),
 	TRAIT_CRACKHEAD = span_love("I can use drugs as much as I want!"),
@@ -136,7 +140,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_CYCLOPS_LEFT = span_warning("My left eye has been poked out..."),
 	TRAIT_CYCLOPS_RIGHT = span_warning("My right eye has been poked out..."),
 	TRAIT_LEECHIMMUNE = "Leeches are reluctant to bite me.",
-	TRAIT_ASSASSIN = "My soul has been tainted by the god of murder.",
+	TRAIT_ASSASSIN = "My soul has been tainted by Graggar, god of murder.",
 	TRAIT_BARDIC_TRAINING = "Xylixian inspiration grants my songs boons and ailments.",
 	TRAIT_GRAVEROBBER = "Necra favors my grim deeds, I can unearth graves without being cursed by her.",
 	TRAIT_MISSING_NOSE = span_warning("I struggle to breathe."),
@@ -155,6 +159,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_LEPROSY = span_necrosis("I'm a disgusting leper..."),
 	TRAIT_LIGHT_STEP = span_info("I will never trip a trap plate."),
 	TRAIT_MOB_FIRE_IMMUNE = span_info("I am immune to most scorching flames."),
+	TRAIT_ENGINEERING_GOGGLES = span_info("I can find out more information from mechanical devices."),
 	TRAIT_SHARPER_BLADES = "My weapons lose their sharpness slower.",
 	TRAIT_BETTER_SLEEP = "I recover more energy when sleeping.",
 	TRAIT_EXTEROCEPTION = "I can see when others are hungry or thirsty.",
@@ -162,6 +167,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_APRICITY = "The warmth of the sun rejuvenates me, allowing me to regain my stamina quicker.",
 	TRAIT_BLACKLEG = "I can cheat by rigging coin and dice, and peek at cards.",
 	TRAIT_MATTHIOS_EYES = span_notice("I have a sense for what the most valuable item someone has is."),
+	TRAIT_CRATEMOVER = "I am able to drag heavy objects without any difficulty."
 	))
 
 // trait accessor defines
@@ -222,6 +228,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 				};\
 		}\
 	} while (0)
+
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
 #define HAS_TRAIT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (source in target.status_traits[trait]) : FALSE) : FALSE)
 
@@ -230,6 +237,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 */
 
 //mob traits
+#define TRAIT_INCAPACITATED		"incapacitated"
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_ZOMBIE_SPEECH 	"zombie_speech"
@@ -315,6 +323,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HARDDISMEMBER		"hard_dismember"
 ///trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
+#define TRAIT_UNTARGETTABLE "untargettable" //can't be targetted by basic mobs
+#define TRAIT_IMPERCEPTIBLE "imperceptible" //! can't be percieved in any way
 
 //bodypart traits
 #define TRAIT_PARALYSIS	"paralysis" //Used for limb-based paralysis and full body paralysis
@@ -393,5 +403,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TIMESTOP_TRAIT "timestop"
 #define ADVENTURER_TRAIT "adventurer"
+#define TRAIT_LONGSTRIDER "longstrider"
+#define TRAIT_GUIDANCE "guidance"
 
 #define TRAIT_I_AM_INVISIBLE_ON_A_BOAT "invisible_on_tram"

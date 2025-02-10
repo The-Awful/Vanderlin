@@ -130,6 +130,8 @@
 
 	log_game("The round has ended.")
 
+	INVOKE_ASYNC(world, TYPE_PROC_REF(/world, flush_byond_tracy))
+
 	to_chat(world, "<BR><BR><BR><span class='reallybig'>So ends this tale of Vanderlin.</span>")
 	get_end_reason()
 
@@ -231,6 +233,7 @@
 
 	sleep(10 SECONDS)
 	ready_for_reboot = TRUE
+	SSplexora.roundended()
 	standard_reboot()
 
 /datum/controller/subsystem/ticker/proc/get_end_reason()
@@ -253,7 +256,7 @@
 		if(C.vampire_werewolf() == "vampire")
 			end_reason = "When the Vampires finished sucking the town dry, they moved on to the next one."
 		if(C.vampire_werewolf() == "werewolf")
-			end_reason = "The Werevolves formed an unholy clan, marauding Rockhill until the end of its daes."
+			end_reason = "The Werevolves formed an unholy clan, marauding Vanderlin until the end of its daes."
 
 		if(C.cultascended)
 			end_reason = "ZIZOZIZOZIZOZIZO"

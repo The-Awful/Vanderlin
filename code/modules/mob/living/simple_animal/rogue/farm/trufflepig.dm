@@ -26,14 +26,14 @@
 		if(istype(W, /obj/item/rogueweapon/shovel))
 			playsound(get_turf(src),'sound/items/dig_shovel.ogg', 70, TRUE)
 			if(user.used_intent.type == /datum/intent/shovelscoop)
-				if(do_after(user, 3 SECONDS, target = src))
+				if(do_after(user, 3 SECONDS, src))
 					new /obj/item/reagent_containers/food/snacks/rogue/truffles(get_turf(src))
 					hidden_truffles = FALSE
 	if(hidden_toxicshrooms)
 		if(istype(W, /obj/item/rogueweapon/shovel))
 			playsound(get_turf(src),'sound/items/dig_shovel.ogg', 70, TRUE)
 			if(user.used_intent.type == /datum/intent/shovelscoop)
-				if(do_after(user, 3 SECONDS, target = src))
+				if(do_after(user, 3 SECONDS, src))
 					new /obj/item/reagent_containers/food/snacks/rogue/toxicshrooms(get_turf(src))
 					hidden_toxicshrooms = FALSE
 	else ..()
@@ -42,7 +42,7 @@
 //	........   Truffles   ................
 /obj/item/reagent_containers/food/snacks/rogue/truffles
 	name = "truffles"
-	icon = 'modular/Neu_Farming/icons/produce.dmi'
+	icon = 'icons/roguetown/items/produce.dmi'
 	icon_state = "mushroom1_full"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/truffles/cooked
@@ -63,7 +63,7 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/toxicshrooms
 	name = "truffles"
-	icon = 'modular/Neu_Farming/icons/produce.dmi'
+	icon = 'icons/roguetown/items/produce.dmi'
 	icon_state = "mushroom1_full"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/berrypoison = 5)
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/toxicshrooms/cooked
