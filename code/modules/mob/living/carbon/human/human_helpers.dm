@@ -100,6 +100,8 @@
 	. = ..()
 	if(.) //No need to run through all of this if it's already true.
 		return
+	if(HAS_TRAIT(src, TRAIT_LEGENDARY_ALCHEMIST))
+		return TRUE
 	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_REAGENTS))
 		return TRUE
 	if(isclothing(head) && (head.clothing_flags & SCAN_REAGENTS))

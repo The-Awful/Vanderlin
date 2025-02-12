@@ -3,40 +3,6 @@
 	crate_name = "merchant guild's crate"
 	crate_type = /obj/structure/closet/crate/chest/merchant
 
-/datum/supply_pack/rogue/food/healthpot
-	name = "Healing Potion"
-	cost = 14
-	contains = /obj/item/reagent_containers/glass/bottle/rogue/healthpot
-
-/datum/supply_pack/rogue/food/manapot
-	name = "Manna Potion"
-	cost = 14
-	contains = /obj/item/reagent_containers/glass/bottle/rogue/manapot
-
-/datum/supply_pack/rogue/food/stronghealthpot
-
-	name = "Strong Healing Potion"
-	cost = 28
-	contains = /obj/item/reagent_containers/glass/bottle/rogue/stronghealthpot
-
-/datum/supply_pack/rogue/food/strongmanapot
-
-	name = "Strong Manna Potion"
-	cost = 28
-	contains = /obj/item/reagent_containers/glass/bottle/rogue/strongmanapot
-
-/datum/supply_pack/rogue/food/antidote
-
-	name = "Antidote Potion"
-	cost = 14
-	contains = /obj/item/reagent_containers/glass/bottle/rogue/antidote
-
-/datum/supply_pack/rogue/food/diseasecure
-
-	name = "Disease Cure Potion"
-	cost = 28
-	contains = /obj/item/reagent_containers/glass/bottle/rogue/diseasecure
-
 /datum/supply_pack/rogue/food/water
 	name = "Water Bottle"
 	cost = 5
