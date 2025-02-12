@@ -64,7 +64,7 @@
 					. += span_notice(" Smells weakly of [minor_smell].")
 /obj/item/alch/viscera
 	name = "viscera"
-	desc = "Sinew ground into a fine paste, good for healing wounds. Somehow."
+	desc = "Sinew ground into a repulsive paste"
 	icon_state = "viscera"
 	major_pot = /datum/alch_cauldron_recipe/big_health_potion
 	med_pot = /datum/alch_cauldron_recipe/health_potion
@@ -72,7 +72,7 @@
 
 /obj/item/alch/waterdust
 	name = "water rune dust"
-	desc = "Alchemically pure elemental water. Probably just ground up fishscales."
+	desc = "Elementally pure water. A valuble byproduct of several alchemical reactions."
 	icon_state = "water_runedust"
 	major_pot = /datum/alch_cauldron_recipe/int_potion
 	med_pot = /datum/alch_cauldron_recipe/mana_potion
@@ -80,7 +80,7 @@
 
 /obj/item/alch/bonemeal
 	name = "bone meal"
-	desc = "For alchemy, not farming."
+	desc = "Ground up creacher bones, their true potential unlocked."
 	icon_state = "bonemeal"
 	major_pot = /datum/alch_cauldron_recipe/mana_potion
 	med_pot = /datum/alch_cauldron_recipe/per_potion
@@ -112,19 +112,16 @@
 
 /obj/item/alch/silverdust
 	name = "silver dust"
-	desc = "Silver ground up for alchemical purposes, known to ward off curses."
+	desc = "Silver ground up for alchemical purposes, for wealthier alchemists"
 	icon_state = "silverdust"
 	major_pot = /datum/alch_cauldron_recipe/disease_cure
 	med_pot = /datum/alch_cauldron_recipe/antidote
 	minor_pot = /datum/alch_cauldron_recipe/big_health_potion
 
 /obj/item/alch/magicdust
-<<<<<<< HEAD
-	name = "magicdust"
-	desc = "Every elemental dust blended together into one."
-=======
 	name = "magic dust"
->>>>>>> cbe3c6c84f68346809eb5b6d96c9475045bcbe53
+	desc = "Every elemental dust blended together into one."
+	name = "magic dust"
 	icon_state = "magic_runedust"
 	major_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	med_pot = /datum/alch_cauldron_recipe/lck_potion
@@ -132,7 +129,7 @@
 
 /obj/item/alch/firedust
 	name = "fire rune dust"
-	desc = "Usually refined from more explosive flora."
+	desc = "Elementally pure fire. A valuble byproduct of several alchemical reactions."
 	icon_state = "fire_runedust"
 	major_pot = /datum/alch_cauldron_recipe/str_potion
 	med_pot = /datum/alch_cauldron_recipe/con_potion
@@ -149,7 +146,7 @@
 
 /obj/item/alch/irondust
 	name = "iron dust"
-	desc = "Thought to imbue the strength of itself on anyone who takes it."
+	desc = "For the creation of potions, not steel."
 	icon_state = "irondust"
 	major_pot = /datum/alch_cauldron_recipe/end_potion
 	med_pot = /datum/alch_cauldron_recipe/con_potion
@@ -157,7 +154,7 @@
 
 /obj/item/alch/airdust
 	name = "air rune dust"
-	desc = "Feels weightless."
+	desc = "Elementally pure air. A valuble byproduct of several alchemical reactions."
 	icon_state = "air_runedust"
 	major_pot = /datum/alch_cauldron_recipe/spd_potion
 	med_pot = /datum/alch_cauldron_recipe/stamina_potion
@@ -165,6 +162,7 @@
 
 /obj/item/alch/swampdust
 	name = "swampweed dust"
+	desc = "Alchemical processing has left it unfit for consumption."
 	icon_state = "swampdust"
 	major_pot = /datum/alch_cauldron_recipe/berrypoison
 	med_pot = /datum/alch_cauldron_recipe/big_stam_poison
@@ -172,6 +170,7 @@
 
 /obj/item/alch/tobaccodust
 	name = "westleach dust"
+	desc = "Alchemical processing has left it unfit for consumption."
 	icon_state = "tobaccodust"
 	major_pot = /datum/alch_cauldron_recipe/per_potion
 	med_pot = /datum/alch_cauldron_recipe/stamina_potion
@@ -179,7 +178,7 @@
 
 /obj/item/alch/earthdust
 	name = "earth rune dust"
-	desc = "Not actually dirt, despite initial appearences."
+	desc = "Elemetally pure earth. A valuble byproduct of several alchemical reactions."
 	icon_state = "earth_runedust"
 	major_pot = /datum/alch_cauldron_recipe/con_potion
 	med_pot = /datum/alch_cauldron_recipe/end_potion
@@ -212,7 +211,7 @@
 /obj/item/alch/golddust
 	name = "gold dust"
 	icon_state = "golddust"
-	desc = "An ingredient reserved only to the most wealthy alchemists."
+	desc = "Gold ground up for alchemical purposes, for the wealthiest alchemists"
 
 	major_pot = /datum/alch_cauldron_recipe/mana_potion
 	med_pot = /datum/alch_cauldron_recipe/con_potion
@@ -237,7 +236,7 @@
 	minor_pot = /datum/alch_cauldron_recipe/int_potion
 
 /obj/item/alch/transisdust
-	name = "transis dust"
+	name = "Transis dust"
 	desc = "A long mix of herb that product a special powder."
 	icon_state = "transisdust"
 
@@ -249,7 +248,6 @@
 
 /obj/item/alch/atropa
 	name = "atropa"
-	desc = "Deadly nightshade, infamous for obvious reasons."
 	icon_state = "atropa"
 
 	major_pot = /datum/alch_cauldron_recipe/doompoison
@@ -258,7 +256,6 @@
 
 /obj/item/alch/matricaria
 	name = "matricaria"
-	desc = "Often brewed into a restorative and sleep inducing tea."
 	icon_state = "matricaria"
 
 	major_pot = /datum/alch_cauldron_recipe/big_stam_poison
@@ -267,7 +264,6 @@
 
 /obj/item/alch/symphitum
 	name = "symphitum"
-	desc = "Commonly used as a sort of antitoxin, though it wreaks havoc on the stomach."
 	icon_state = "symphitum"
 
 	major_pot = /datum/alch_cauldron_recipe/disease_cure
@@ -276,7 +272,6 @@
 
 /obj/item/alch/taraxacum
 	name = "taraxacum"
-	desc = "Worn in a crown during harvest festivals to bring about good fortune for the coming season."
 	icon_state = "taraxacum"
 
 	major_pot = /datum/alch_cauldron_recipe/lck_potion
@@ -285,7 +280,6 @@
 
 /obj/item/alch/euphrasia
 	name = "euphrasia"
-	desc = "Place these over your eyes overnight, and when you wake up you'll see as well as the day you were born! Or so they say."
 	icon_state = "euphrasia"
 
 	major_pot = /datum/alch_cauldron_recipe/per_potion
@@ -294,7 +288,6 @@
 
 /obj/item/alch/paris
 	name = "paris"
-	desc = "An unassuming bunch of leaves known to cause a severe shortness of breath."
 	icon_state = "paris"
 
 	major_pot = /datum/alch_cauldron_recipe/big_stam_poison
@@ -303,7 +296,6 @@
 
 /obj/item/alch/calendula
 	name = "calendula"
-	desc = "Given to the dead during funeral rites, some even say it can bring them back."
 	icon_state = "calendula"
 
 	major_pot = /datum/alch_cauldron_recipe/big_health_potion
@@ -312,7 +304,6 @@
 
 /obj/item/alch/mentha
 	name = "mentha"
-	desc = "A semi-sweet plant known to cause a sort of coolness on the tongue, very invigorating."
 	icon_state = "mentha"
 
 	major_pot = /datum/alch_cauldron_recipe/spd_potion
@@ -321,7 +312,6 @@
 
 /obj/item/alch/urtica
 	name = "urtica"
-	desc = "Soothes open wounds, yet irritates healthy flesh."
 	icon_state = "urtica"
 
 	major_pot = /datum/alch_cauldron_recipe/berrypoison
@@ -330,7 +320,6 @@
 
 /obj/item/alch/salvia
 	name = "salvia"
-	desc = "Causes severe hallucinations known to induce a feeling of omnipotence."
 	icon_state = "salvia"
 
 	major_pot = /datum/alch_cauldron_recipe/con_potion
@@ -339,16 +328,14 @@
 
 /obj/item/alch/hypericum
 	name = "hypericum"
-	desc = "A herb said to be blessed by Noc himself."
 	icon_state = "hypericum"
 
 	major_pot = /datum/alch_cauldron_recipe/stamina_potion
-	med_pot = /datum/alch_cauldron_recipe/mana_potion
+	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/antidote
 
 /obj/item/alch/benedictus
 	name = "benedictus"
-	desc = "A few leaves of this feels like an entire meal, well if you can stomach the nettles that is."
 	icon_state = "benedictus"
 
 	major_pot = /datum/alch_cauldron_recipe/big_stamina_potion
@@ -357,7 +344,6 @@
 
 /obj/item/alch/valeriana
 	name = "valeriana"
-	desc = "Peaceful white flowers, said to be infused with healing magic."
 	icon_state = "valeriana"
 
 	major_pot = /datum/alch_cauldron_recipe/health_potion
@@ -366,7 +352,6 @@
 
 /obj/item/alch/artemisia
 	name = "artemisia"
-	desc = "Let's you feel the rapid beating of your heart, for better or for worse."
 	icon_state = "artemisia"
 
 	major_pot = /datum/alch_cauldron_recipe/stam_poison
@@ -378,38 +363,21 @@
 	name = "feau dust"
 	result = list(/obj/item/alch/feaudust,
 				/obj/item/alch/feaudust)
-	reqs = list(/obj/item/alch/irondust = 1,
+	reqs = list(/obj/item/alch/irondust = 2,
 				/obj/item/alch/golddust = 1)
-	structurecraft = /obj/structure/table
-	verbage = "mix"
-	verbage_tp = "mixes"
+	structurecraft = /obj/structure/table/wood
+	verbage = "mixes"
 	craftsound = 'sound/foley/scribble.ogg'
 	skillcraft = /datum/skill/craft/alchemy
-	craftdiff = 2
+	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/alch/magicdust
 	name = "magic dust"
 	result = list(/obj/item/alch/magicdust)
 	reqs = list(/obj/item/alch/waterdust = 1, /obj/item/alch/firedust = 1,
 				/obj/item/alch/airdust = 1, /obj/item/alch/earthdust = 1)
-	structurecraft = /obj/structure/table
-	verbage = "mix"
-	verbage_tp = "mixes"
+	structurecraft = /obj/structure/table/wood
+	verbage = "mixes"
 	craftsound = 'sound/foley/scribble.ogg'
 	skillcraft = /datum/skill/craft/alchemy
-	craftdiff = 3
-
-/datum/crafting_recipe/roguetown/alch/transistus
-	name = "transis dust"
-	result = /obj/item/alch/transisdust
-	reqs = list(/obj/item/alch/artemisia = 1,
-		/obj/item/alch/benedictus = 1,
-		/obj/item/alch/hypericum = 1,
-		/obj/item/alch/salvia = 1,
-		/obj/item/alch/atropa = 1,
-		/obj/item/alch/taraxacum =1)
-	structurecraft = /obj/structure/table
-	verbage = "mix"
-	verbage_tp = "mixes"
-	skillcraft = /datum/skill/craft/alchemy
-	craftdiff = 4
+	craftdiff = 0
