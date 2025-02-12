@@ -91,12 +91,12 @@
 /datum/supply_pack/rogue/food/meat
 	name = "Dry Meat"
 	cost = 10
-	contains = /obj/item/reagent_containers/food/snacks/rogue/meat/coppiette
+	contains = /obj/item/reagent_containers/food/snacks/cooked/coppiette
 
 /datum/supply_pack/rogue/food/hardtack
 	name = "Hardtack"
 	cost = 6
-	contains = /obj/item/reagent_containers/food/snacks/rogue/crackerscooked
+	contains = /obj/item/reagent_containers/food/snacks/hardtack
 
 /datum/supply_pack/rogue/food/cheese
 	name = "Cheese Wheel"
@@ -136,4 +136,4 @@
 /datum/supply_pack/rogue/food/honey
 	name = "Honey"
 	cost = 15
-	contains = /obj/item/reagent_containers/food/snacks/rogue/honey
+	contains = /obj/item/reagent_containers/food/snacks/spiderhoney
