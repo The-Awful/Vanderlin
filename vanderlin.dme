@@ -2456,6 +2456,7 @@
 #include "code\modules\clothing\outfits\eastern.dm"
 #include "code\modules\clothing\outfits\matyr.dm"
 #include "code\modules\clothing\outfits\patrons.dm"
+#include "code\modules\clothing\outfits\rosewood.dm"
 #include "code\modules\clothing\outfits\stealth.dm"
 #include "code\modules\clothing\outfits\vv_outfit.dm"
 #include "code\modules\clothing\pants\_pants.dm"
