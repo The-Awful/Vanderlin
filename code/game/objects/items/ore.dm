@@ -290,6 +290,15 @@
 	melting_material = /datum/material/blacksteel
 	item_weight = 7.5 * BLACKSTEEL_MULTIPLIER
 
+/obj/item/ingot/rosablacksteel
+	name = "rosa blacksteel bar"
+	desc = "Named as such for its brutal origin, this metal has a similar strength as blacksteel, though it holds a much better edge."
+	icon_state = "ingotrosa"
+	smeltresult = /obj/item/ingot/rosablacksteel
+	sellprice = 120 //You gotta kill people to get this shit.
+	melting_material = /datum/material/rosablacksteel
+	item_weight = 7.5 * BLACKSTEEL_MULTIPLIER
+
 /obj/item/ingot/steel_slag
 	name = "steel slag"
 	desc = "Slag containing steel, the result of blooming iron and coal."
@@ -298,3 +307,4 @@
 	sellprice = 90
 	melting_material = /datum/material/steel
 	item_weight = 7.5 * STEEL_MULTIPLIER
+D
