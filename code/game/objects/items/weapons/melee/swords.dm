@@ -1302,7 +1302,7 @@
 	gripped_intents = list(SWORD_CUT, SWORD_STRIKE, SWORD_CHOP)
 
 //................ Terminus Est ............... //
-/obj/item/weapon/sword/long/exe/cloth
+/obj/item/weapon/sword/long/exe/clothS
 	icon_state = "terminusest"
 	name = "Terminus Est"
 
@@ -1315,6 +1315,97 @@
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_SCRUB)
 	user.visible_message("<span class='warning'>[user] wipes [src] down with its cloth.</span>", "<span class='notice'>I wipe [src] down with its cloth.</span>")
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+//................ Rosa Blacksteel Swords ............... //
+/obj/item/weapon/sword/long/naerbloom
+	name = "naerbloom"
+	desc = "A fanciful implement of execution, balanced to put its full weight into the seperation of appendages."
+	icon_state = "naerbloom"
+	alt_intents = null
+	force_wielded = DAMAGE_GREATSWORD_WIELD
+	wbalance = EASY_TO_DODGE
+	wlength = WLENGTH_GREAT
+	possible_item_intents = list(SWORD_CUT, SWORD_STRIKE)
+	gripped_intents = list(SWORD_CUT, SWORD_STRIKE, AXE_CHOP)
+	minstr = 11
+
+	swingsound = BLADEWOOSH_HUGE
+	slot_flags = ITEM_SLOT_BACK
+	sellprice = 180
+
+	weapon_special = /datum/special_intent/greatsword_swing
+
+/obj/item/weapon/sword/long/rosaeval
+	name = "rosaeval"
+	desc = "A uniquely designed two-handed rapier, for applying greater force while remaining agile."
+	icon_state = "rosaeval"
+	alt_intents = null
+	force_wielded = DAMAGE_SWORD_WIELD
+	armor_penetration = 15 //This should pierce scale.
+	wbalance = VERY_HARD_TO_DODGE
+	possible_item_intents = list(RAPIER_THRUST, RAPIER_CUT)
+	gripped_intents = list(RAPIER_THRUST, RAPIER_CUT)
+	minstr = 9
+	sellprice = 180
+
+	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')
+	parrysound = "rapier"
+	swingsound = BLADEWOOSH_MED
+
+	weapon_special = /datum/special_intent/piercing_lunge
+
+/obj/item/weapon/sword/long/aethvael
+	name = "aethvael"
+	desc = "A heavily ornamented longsword with an edge as sharp as the thorns it was born from."
+	icon_state = "aethvael"
+	alt_intents = null
+	force_wielded = DAMAGE_GREATSWORD_WIELD
+	wbalance = HARD_TO_DODGE
+	wlength = WLENGTH_LONG
+	gripped_intents = list(SWORD_CUT, SWDLONG_THRUS, SWORD_STRIKE, SWDLONG_CHOP)
+	minstr = 10
+
+	swingsound = BLADEWOOSH_LARGE
+	slot_flags = ITEM_SLOT_BACK
+	sellprice = 180
+
+	weapon_special = /datum/special_intent/greatsword_swing
+
+/obj/item/weapon/sword/long/naeredge
+	name = "naeredge"
+	desc = "A two handed cavalry sabre specialized at dispatching large swathes of unarmed infantry."
+	icon_state = "naeredge"
+	alt_intents = null
+	force_wielded = DAMAGE_SWORD_WIELD
+	wdefense = ULTMATE_PARRY
+	wbalance = HARD_TO_DODGE
+	possible_item_intents = list(SWORD_CUT, CURVED_THRUST)
+	gripped_intents = list(SWORD_CUT, CURVED_THRUST)
+	minstr = 9
+	sellprice = 180
+
+	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')
+	parrysound = "rapier"
+	swingsound = BLADEWOOSH_MED
+
+	weapon_special = /datum/special_intent/side_sweep
+
+/obj/item/weapon/sword/rosafang
+	name = "rosafang"
+	desc = "A short sword adored by sabeteurs and assasins alike... were it not for it's excessive decoration."
+	icon_state = "rosafang"
+	force = DAMAGE_SWORD + 2
+	force_wielded = 0
+	wbalance = HARD_TO_DODGE
+	wlength = WLENGTH_SHORT
+	possible_item_intents = list(SWORD_CUT, SHORT_THRUST)
+	gripped_intents = null
+	alt_intents = null
+	minstr = 5
+	alt_intents = null
+	sellprice = 90
+
+	weapon_special = /datum/special_intent/triple_stab
 
 // Copper Messer
 

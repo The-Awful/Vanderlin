@@ -105,6 +105,31 @@
 	force_wielded =  DAMAGE_STAFF_WIELD + 1
 	sellprice = 100
 
+/obj/item/weapon/polearm/woodstaff/vaenstaff
+	name = "vaenstaff"
+	desc = "An advanced quarterstaff, hefty enough to disorient whoever is unlucky enough to be hit by it, but light enough to parry any returning blows."
+	icon_state = "vaenstaff"
+	force = DAMAGE_SPEARPLUS
+	force_wielded = DAMAGE_SPEAR_WIELD
+	possible_item_intents = list(POLEARM_BASH)
+	gripped_intents = list(MACE_STRIKE, MACE_SMASH, DAZE_BASH)
+	max_integrity = INTEGRITY_STRONGEST
+	minstr = 6
+
+	weapon_special = /datum/special_intent/ground_smash
+
+/obj/item/weapon/polearm/woodstaff/quarterstaff/steel/rosawand
+	name = "rosawand"
+	desc = "Cursed black briars entwine themselves around this staff unaturally, imbuing it with the power of an arcane focus."
+	icon_state = "briarshillelagh"
+	gripped_intents = list(POLEARM_BASH, MACE_WOODSMASH)
+	minstr = 5
+
+/obj/item/weapon/polearm/woodstaff/quarterstaff/steel/rosawand/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/mana_regeneration)
+	enchant(/datum/enchantment/mana_capacity)
+
 //................ Spear ............... //
 /obj/item/weapon/polearm/spear
 	name = "spear"

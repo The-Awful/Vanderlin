@@ -266,3 +266,16 @@
 	chargetime = 0.5
 	chargedrain = 1
 	charging_slowdown = 0.5
+
+/*------------\
+| Short Bow |
+\------------*/
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/vaeldpiercer
+	name = "vaeldpiercer"
+	desc = "The archer draws the bow with all his might, but it is the arrow that knows the way to the target."
+	icon_state = "vaeldpiercer"
+	base_icon = "vaeldpiercer"
+	possible_item_intents = list(/datum/intent/shoot/bow/short, /datum/intent/arc/bow/short,INTENT_GENERIC)
+	force = 12
+	damfactor = 1.2

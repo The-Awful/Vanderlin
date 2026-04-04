@@ -463,6 +463,15 @@
 	melt_amount = 150
 	sellprice = 90
 
+/obj/item/weapon/greataxe/steel/rosacrush
+	name = "rosacrush axe"
+	desc = "The best way to deal with black briars, is, of course, more black briars."
+	icon_state = "rosacrush"
+	force_wielded = DAMAGE_HEAVYAXE_WIELD + 3
+	melting_material = /datum/material/rosablacksteel
+	melt_amount = 150
+	sellprice = 180
+
 /obj/item/weapon/greataxe/steel/doublehead // Trades more damage for being worse to parry with and easier to dodge of.
 	name = "double-headed steel greataxe"
 	desc = "A steel great axe with a wicked double-bladed head. Perfect for cutting either men or trees into stumps."
