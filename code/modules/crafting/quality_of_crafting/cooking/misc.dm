@@ -31,6 +31,19 @@
 	)
 	output = /obj/item/soap/bath
 
+/datum/repeatable_crafting_recipe/cooking/soap/rosa
+	name = "rosa soap"
+	tool_usage = list(
+		/obj/item/pestle = list("starts to grind materials in the mortar", "start to grind materials in the mortar", 'sound/foley/mortarpestle.ogg'),
+	)
+
+	requirements = list(
+		/obj/item/fertilizer/ash = 1,
+		/obj/item/reagent_containers/food/snacks/fat = 1,
+		/obj/item/alch/herb/rosa = 1,
+	)
+	output = /obj/item/soap/bath/rosa
+
 /datum/repeatable_crafting_recipe/cooking/apple_fritter_raw
 	name = "Raw Apple Fritter"
 

@@ -15,6 +15,7 @@
 	force_string = "robust... against filth"
 	var/uses = 100
 	var/slip_chance = 15
+	var/fragrance = null
 
 /obj/item/soap/Initialize(mapload, ...)
 	. = ..()
@@ -145,6 +146,8 @@
 	if(do_after(user, 5 SECONDS, target))
 		playsound(T, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 100, FALSE)
 		scrub_scrub(target, user)
+		if(fragrance)
+			target.AddComponent(/datum/component/temporary_pollution_emission, fragrance, 5, 10 MINUTES)
 		return TRUE
 	return FALSE
 
@@ -186,6 +189,13 @@
 	icon_state = "soapherbal"
 	desc = "A combination of ash and animal fats used for cleaning. Typically dissolved in water. This one smells pretty nice."
 	uses = 40
+	fragrance = /datum/pollutant/fragrance/mint
+
+/obj/item/soap/bath/rosa
+	name = "rosa soap"
+	icon_state = "soaprosa"
+	desc = "A combination of ash and animal fats used for cleaning. Typically dissolved in water. This one smells like rosas."
+	fragrance = /datum/pollutant/fragrance/rose
 
 //Only get the buff if you use the good stuff
 /obj/item/soap/bath/scrub_scrub(mob/living/carbon/human/target, mob/living/carbon/user)
