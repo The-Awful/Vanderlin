@@ -155,7 +155,7 @@
 
 /obj/item/ore/cursedrosa/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/cursedrosa, FALSE, TRUE)
+	AddComponent(/datum/component/cursedrosa, FALSE, TRUE, FALSE)
 
 /obj/item/ore/cursedrosa/examine(mob/user)
 	. = ..()

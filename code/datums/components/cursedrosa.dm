@@ -2,18 +2,22 @@
 /datum/component/cursedrosa
 	var/cross_trigger
 	var/hand_trigger
+	var/hit_trigger
 
-/datum/component/cursedrosa/Initialize(cross_trigger=FALSE, hand_trigger=TRUE)
+/datum/component/cursedrosa/Initialize(cross_trigger=FALSE, hand_trigger=TRUE, hit_trigger=FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.cross_trigger = cross_trigger
 	src.hand_trigger = hand_trigger
+	src.hit_trigger = hit_trigger
 
 /datum/component/cursedrosa/RegisterWithParent()
 	if(cross_trigger)
 		RegisterSignals(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_HITBY), PROC_REF(atom_crossed))
 	if(hand_trigger)
 		RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(attack_hand))
+	if(hit_trigger)
+		RegisterSignal(parent, COMSIG_PROJECTILE_ON_HIT, PROC_REF(shot_by))
 
 /datum/component/cursedrosa/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ATTACK_HAND))
@@ -50,3 +54,10 @@
 		return
 	var/def_zone = (target.active_hand_index == 1 ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	attempt_infection(target, def_zone)
+
+/datum/component/cursedrosa/proc/shot_by(projectile_source, mob/living/carbon/firer, mob/living/carbon/target)
+	if(!istype(target))
+		return
+	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+		return
+	attempt_infection(target, BODY_ZONE_CHEST)

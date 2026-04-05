@@ -376,7 +376,7 @@
 
 /obj/structure/vine/black_briar/Initialize()
 	. = ..()
-	AddComponent(/datum/component/cursedrosa, TRUE, TRUE)
+	AddComponent(/datum/component/cursedrosa, TRUE, TRUE, FALSE)
 
 /obj/structure/vine/black_briar/unbuckle_mob(mob/living/buckled_mob, force)
 	if(!permanent_buckle || force)

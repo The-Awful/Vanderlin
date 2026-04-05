@@ -406,6 +406,25 @@
 		M.fire_act(6)
 	explosion(get_turf(target), -1, flame_range = 2, soundin = explode_sound)
 
+//................ Black Briar Arrow ............... //
+/obj/item/ammo_casing/caseless/arrow/briar
+	name = "black briar arrow"
+	desc = "An arrow entwined with cursed, infectious blackbriars."
+	projectile_type = /obj/projectile/bullet/reusable/arrow/briar
+	icon_state = "arrow_briar"
+	force = DAMAGE_KNIFE - 2
+
+/obj/projectile/bullet/reusable/arrow/briar
+	name = "black briar arrow"
+	desc = "An arrow entwined with cursed, infectious blackbriars."
+	icon_state = "arrow_proj"
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/briar
+	can_inject = FALSE
+
+/obj/projectile/bullet/reusable/arrow/briar/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursedrosa, FALSE, FALSE, TRUE)
+
 //................ Vial Arrow ............... //
 /obj/item/ammo_casing/caseless/arrow/vial
 	name = "vial arrow"

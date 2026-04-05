@@ -198,4 +198,4 @@
 
 /obj/structure/flora/grass/herb/cursedrosa/Initialize()
 	. = ..()
-	AddComponent(/datum/component/cursedrosa, TRUE, TRUE)
+	AddComponent(/datum/component/cursedrosa, TRUE, TRUE, FALSE)

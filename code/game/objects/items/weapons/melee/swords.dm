@@ -1362,7 +1362,7 @@
 	force_wielded = DAMAGE_GREATSWORD_WIELD
 	wbalance = HARD_TO_DODGE
 	wlength = WLENGTH_LONG
-	gripped_intents = list(SWORD_CUT, SWDLONG_THRUS, SWORD_STRIKE, SWDLONG_CHOP)
+	gripped_intents = list(SWORD_CUT, SWDLONG_THRUST, SWORD_STRIKE, SWDLONG_CHOP)
 	minstr = 10
 
 	swingsound = BLADEWOOSH_LARGE
