@@ -1197,6 +1197,7 @@
 #include "code\datums\enchantments\phoenix_guard.dm"
 #include "code\datums\enchantments\silver.dm"
 #include "code\datums\enchantments\temporal_rewind.dm"
+#include "code\datums\enchantments\unatural_repair.dm"
 #include "code\datums\enchantments\vampiric.dm"
 #include "code\datums\enchantments\voidborn.dm"
 #include "code\datums\event_groups\_base.dm"
