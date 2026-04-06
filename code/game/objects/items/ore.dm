@@ -176,6 +176,29 @@
 		return
 	return ..()
 
+/obj/item/ore/cursedrosa/attack_hand_secondary(mob/living/user, params)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	to_chat(user, span_warning("I start to pluck the petals from the [src]..."))
+	if(do_after(user, 4 SECONDS, src))
+		user.visible_message(span_notice("[user] plucks the [src]."), \
+		span_notice("I pluck the [src]."))
+		var/obj/item/R = new /obj/item/ore/cursedrosa_petals(get_turf(src))
+		user.put_in_active_hand(R)
+		qdel(src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/ore/cursedrosa_petals
+	name = "black briar petals"
+	icon_state = "cursedrosa_petals"
+	item_weight = 3 * BLACKSTEEL_MULTIPLIER
+	smeltresult = /obj/item/ore/cursedrosa_petals
+	sellprice = 15
+
+	max_integrity = 500
+	resistance_flags = FIRE_PROOF
+
 /* ............Ingots............ */
 /obj/item/ingot
 	name = "ingot"

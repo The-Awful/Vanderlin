@@ -1066,6 +1066,62 @@
 	additional_items = list(/obj/item/natural/hide/cured, /obj/item/natural/hide/cured)
 	i_type = "Weapons"
 
+// --------- Rosa Blacksteel ------------  Harder to craft, does less damage and has less durability than steel, but banes undead.
+
+/datum/anvil_recipe/weapons/rosa
+	abstract_type = /datum/anvil_recipe/weapons/rosa
+	req_bar = /obj/item/ingot/rosablacksteel
+	craftdiff = 5
+///////////////////////////////////////////////
+
+/datum/anvil_recipe/weapons/rosa/naerbloom
+	name = "Naerbloom Greatsword (+2 Rosa Blacksteel Bar)"
+	recipe_name = "a Rosa Blacksteel Greatsword"
+	additional_items = list(/obj/item/ingot/rosablacksteel, /obj/item/ingot/rosablacksteel)
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/sword/long/naerbloom
+
+/datum/anvil_recipe/weapons/rosa/rosaeval
+	name = "Rosaeval Rapier (+1 Rosa Blacksteel Bar)"
+	recipe_name = "a Rosa Blacksteel Rapier"
+	additional_items = list(/obj/item/ingot/rosablacksteel)
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/sword/long/rosaeval
+
+/datum/anvil_recipe/weapons/rosa/aethvael
+	name = "Aethvael Longsword (+1 Rosa Blacksteel Bar)"
+	recipe_name = "a Rosa Blacksteel Longsword"
+	additional_items = list(/obj/item/ingot/rosablacksteel)
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/sword/long/aethvael
+
+/datum/anvil_recipe/weapons/rosa/naeredge
+	name = "Naeredge Sabre (+1 Rosa Blacksteel Bar)"
+	recipe_name = "a Rosa Blacksteel Sabre"
+	additional_items = list(/obj/item/ingot/rosablacksteel)
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/sword/long/naeredge
+
+/datum/anvil_recipe/weapons/rosa/rosafang
+	name = "Rosafang Shortsword"
+	recipe_name = "a Rosa Blacksteel Shortsword"
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/sword/rosafang
+
+/datum/anvil_recipe/weapons/rosa/vaenstaff
+	name = "Vaenstaff Polearm (+1 Rosa Blacksteel Bar)"
+	recipe_name = "a Rosa Blacksteel Staff"
+	additional_items = list(/obj/item/ingot/rosablacksteel)
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/polearm/woodstaff/vaenstaff
+
+/datum/anvil_recipe/weapons/rosa/rosacrush
+	name = "Rosacrush Greataxe (+2 Rosa Blacksteel Bar)"
+	recipe_name = "a Rosa Blacksteel Greataxe"
+	additional_items = list(/obj/item/ingot/rosablacksteel, /obj/item/ingot/rosablacksteel)
+	appro_skill = /datum/attribute/skill/craft/weaponsmithing
+	created_item = /obj/item/weapon/greataxe/steel/rosacrush
+
 /datum/anvil_recipe/weapons/atgervi_shield
 	name = "kite shield"
 	req_bar = /obj/item/ingot/steel

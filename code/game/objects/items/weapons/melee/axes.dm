@@ -472,6 +472,10 @@
 	melt_amount = 150
 	sellprice = 180
 
+/obj/item/weapon/greataxe/steel/rosacrush/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
+
 /obj/item/weapon/greataxe/steel/doublehead // Trades more damage for being worse to parry with and easier to dodge of.
 	name = "double-headed steel greataxe"
 	desc = "A steel great axe with a wicked double-bladed head. Perfect for cutting either men or trees into stumps."

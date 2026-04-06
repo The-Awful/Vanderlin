@@ -1335,6 +1335,10 @@
 
 	weapon_special = /datum/special_intent/greatsword_swing
 
+/obj/item/weapon/sword/long/naerbloom/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
+
 /obj/item/weapon/sword/long/rosaeval
 	name = "rosaeval"
 	desc = "A uniquely designed two-handed rapier, for applying greater force while remaining agile."
@@ -1354,6 +1358,10 @@
 
 	weapon_special = /datum/special_intent/piercing_lunge
 
+/obj/item/weapon/sword/long/rosaeval/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
+
 /obj/item/weapon/sword/long/aethvael
 	name = "aethvael"
 	desc = "A heavily ornamented longsword with an edge as sharp as the thorns it was born from."
@@ -1370,6 +1378,10 @@
 	sellprice = 180
 
 	weapon_special = /datum/special_intent/greatsword_swing
+
+/obj/item/weapon/sword/long/aethvael/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
 
 /obj/item/weapon/sword/long/naeredge
 	name = "naeredge"
@@ -1390,6 +1402,10 @@
 
 	weapon_special = /datum/special_intent/side_sweep
 
+/obj/item/weapon/sword/long/naeredge/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
+
 /obj/item/weapon/sword/rosafang
 	name = "rosafang"
 	desc = "A short sword adored by sabeteurs and assasins alike... were it not for it's excessive decoration."
@@ -1406,6 +1422,10 @@
 	sellprice = 90
 
 	weapon_special = /datum/special_intent/triple_stab
+
+/obj/item/weapon/sword/rosafang/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
 
 // Copper Messer
 

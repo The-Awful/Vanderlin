@@ -10,6 +10,7 @@
 		/datum/thaumaturgical_essence/light = 30
 	)
 
+
 /datum/enchantment/unatural_repair/register_triggers(atom/item)
 	. = ..()
 	registered_signals += COMSIG_ITEM_EQUIPPED
@@ -18,14 +19,15 @@
 	RegisterSignal(item, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 /datum/enchantment/unatural_repair/proc/on_equip(obj/item/i, mob/living/user)
-	// Constant slow healing while equipped
 	START_PROCESSING(SSobj, src)
 
 /datum/enchantment/unatural_repair/proc/on_drop(obj/item/i, mob/living/user)
 	STOP_PROCESSING(SSobj, src)
 
 /datum/enchantment/unatural_repair/process()
-	if(enchanted_item.loc && isliving(enchanted_item.loc))
-		var/mob/living/L = enchanted_item.loc
-		if(L.health < L.maxHealth)
-			L.heal_bodypart_damage(1, 1)
+	if(enchanted_item.get_integrity() < enchanted_item.max_integrity)
+		enchanted_item.repair_damage(1)
+	if(isitem(enchanted_item))
+		var/obj/item/I = enchanted_item
+		if(I.max_blade_int)
+			I.add_bintegrity(1)

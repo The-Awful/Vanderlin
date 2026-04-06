@@ -184,6 +184,7 @@
 					var/steelalloy
 					var/bronzealloy
 					var/blacksteelalloy
+					var/rosasteelalloy
 
 					for(var/obj/item/I in ore)
 						if(I.smeltresult == /obj/item/ore/coal)
@@ -198,6 +199,9 @@
 							blacksteelalloy = blacksteelalloy + 1
 						if(I.smeltresult == /obj/item/ingot/steel)
 							blacksteelalloy = blacksteelalloy + 2
+							rosasteelalloy = rosasteelalloy + 2
+						if(I.smeltresult == /obj/item/ore/cursedrosa_petals)
+							rosasteelalloy = rosasteelalloy + 1
 
 					if(steelalloy == 7)
 						maxore = 3
@@ -206,6 +210,9 @@
 						alloy = /obj/item/ingot/bronze
 					else if(blacksteelalloy == 7)
 						alloy = /obj/item/ingot/blacksteel
+						maxore = 2
+					else if(rosasteelalloy == 7)
+						alloy = /obj/item/ingot/rosablacksteel
 						maxore = 2
 					else
 						alloy = null
@@ -221,7 +228,7 @@
 						floor_mean_quality = floor(floor_mean_quality/ore_deleted)
 						for(var/i in 1 to maxore)
 							var/obj/item/R = new alloy(src, floor_mean_quality)
-							if(alloy == /obj/item/ingot/blacksteel)
+							if(alloy == /obj/item/ingot/blacksteel || /obj/item/ingot/rosablacksteel)
 								record_round_statistic(STATS_BLACKSTEEL_SMELTED)
 							ore += R
 					else

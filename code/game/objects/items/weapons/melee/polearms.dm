@@ -118,6 +118,10 @@
 
 	weapon_special = /datum/special_intent/ground_smash
 
+/obj/item/weapon/polearm/woodstaff/vaenstaff/Initialize()
+	. = ..()
+	enchant(/datum/enchantment/unatural_repair)
+
 /obj/item/weapon/polearm/woodstaff/quarterstaff/steel/rosawand
 	name = "rosawand"
 	desc = "Cursed black briars entwine themselves around this staff unaturally, imbuing it with the power of an arcane focus."
