@@ -4,10 +4,10 @@
 	enchantment_color = "#FF69B4"
 	enchantment_end_message = "The life essence fades away."
 	essence_recipe = list(
-		/datum/thaumaturgical_essence/life = 80,
-		/datum/thaumaturgical_essence/cycle = 50,
-		/datum/thaumaturgical_essence/magic = 35,
-		/datum/thaumaturgical_essence/light = 30
+		/datum/thaumaturgical_essence/poison = 50,
+		/datum/thaumaturgical_essence/chaos = 90,
+		/datum/thaumaturgical_essence/magic = 40,
+		/datum/thaumaturgical_essence/life = 30
 	)
 
 
