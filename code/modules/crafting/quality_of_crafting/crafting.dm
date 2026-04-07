@@ -102,6 +102,20 @@
 /datum/repeatable_crafting_recipe/crafting/antlerhood/create_blacklisted_paths()
 	blacklisted_paths = subtypesof(/obj/item/natural/hide)
 
+/datum/repeatable_crafting_recipe/crafting/vaeldpiercer
+	name = "vaeldpiercer bow"
+	requirements = list(
+		/obj/item/natural/wood/plank = 1,
+		/obj/item/natural/bowstring = 1,
+		/obj/item/reagent_containers/food/snacks/fat = 1,
+		/obj/item/ore/cursedrosa = 1,
+	)
+	attacked_atom = /obj/item/natural/wood/plank
+	starting_atom  = /obj/item/natural/bowstring
+	allow_inverse_start = TRUE
+	output = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/vaeldpiercer
+	craftdiff = 4
+
 /datum/repeatable_crafting_recipe/crafting/short_bow
 	name = "short bow"
 	requirements = list(
@@ -343,6 +357,19 @@
 	output = /obj/item/weapon/polearm/woodstaff/quarterstaff/steel
 	skillcraft = /datum/attribute/skill/craft/carpentry
 	craftdiff = 3
+
+/datum/repeatable_crafting_recipe/crafting/rosawand
+	name = "black briar rosawand"
+	requirements = list(
+		/obj/item/weapon/polearm/woodstaff/quarterstaff = 1,
+		/obj/item/ore/cursedrosa,
+	)
+	attacked_atom = /obj/item/weapon/polearm/woodstaff/quarterstaff
+	starting_atom  = /obj/item/ore/cursedrosa
+	allow_inverse_start = FALSE
+	output = /obj/item/weapon/polearm/woodstaff/quarterstaff/steel/rosawand
+	skillcraft = /datum/attribute/skill/craft/carpentry
+	craftdiff = 4
 
 /datum/repeatable_crafting_recipe/crafting/caningstick
 	name = "caning stick"

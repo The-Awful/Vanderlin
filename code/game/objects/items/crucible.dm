@@ -195,6 +195,11 @@
 		/datum/material/blacksteel = 100,
 	)
 
+/obj/item/storage/crucible/test_crucible/moltenbriars
+	material_data_to_add = list(
+		/datum/material/moltenbriars = 100,
+	)
+
 /obj/item/storage/crucible/test_crucible/rosablacksteel
 	material_data_to_add = list(
 		/datum/material/rosablacksteel = 100,

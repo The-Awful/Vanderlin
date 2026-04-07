@@ -194,6 +194,8 @@
 	icon_state = "cursedrosa_petals"
 	item_weight = 3 * BLACKSTEEL_MULTIPLIER
 	smeltresult = /obj/item/ore/cursedrosa_petals
+	melting_material = /datum/material/moltenbriars
+	melt_amount = 100
 	sellprice = 15
 
 	max_integrity = 500
