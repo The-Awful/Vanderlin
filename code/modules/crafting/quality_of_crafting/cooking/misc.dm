@@ -313,6 +313,8 @@
 	attacked_atom = /obj/item/reagent_containers/food/snacks/bread/ribrack
 	starting_atom = /obj/item/reagent_containers/food/snacks/spiderhoney
 	allow_inverse_start = TRUE
+	subtypes_allowed = TRUE
+	blacklisted_paths = list(/obj/item/reagent_containers/food/snacks/bread/ribrack/honey)
 	output = /obj/item/reagent_containers/food/snacks/bread/ribrack/honey
 	craft_time = 2 SECONDS
 	crafting_sound = 'sound/foley/dropsound/food_drop.ogg'
