@@ -26,8 +26,8 @@
 
 /datum/enchantment/unatural_repair/process()
 	if(enchanted_item.get_integrity() < enchanted_item.max_integrity)
-		enchanted_item.repair_damage(1)
+		enchanted_item.repair_damage(0.5)
 	if(isitem(enchanted_item))
 		var/obj/item/I = enchanted_item
 		if(I.max_blade_int)
-			I.add_bintegrity(1)
+			I.add_bintegrity(0.5)
