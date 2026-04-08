@@ -58,14 +58,3 @@ GLOBAL_LIST_INIT(molten_recipes, list())
 	output = list(
 		/datum/material/blacksteel = 10,
 	)
-
-/datum/molten_recipe/rosablacksteel
-	name = "Rosa Blacksteel"
-	materials_required = list(
-		/datum/material/steel = 6,
-		/datum/material/moltenbriars = 2,
-	)
-	temperature_required = 1423.15
-	output = list(
-		/datum/material/rosablacksteel = 4,
-	)
