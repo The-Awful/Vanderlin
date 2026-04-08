@@ -1118,7 +1118,7 @@
 /datum/anvil_recipe/weapons/rosa/rosacrush
 	name = "Rosacrush Greataxe (+1 Rosa Blacksteel Bar + Small Log)"
 	recipe_name = "a Rosa Blacksteel Greataxe"
-	additional_items = list(/obj/item/ingot/rosablacksteel, /#include "code\datums\materials\metals\rosablacksteel.dm")
+	additional_items = list(/obj/item/ingot/rosablacksteel, /obj/item/grown/log/tree/small)
 	appro_skill = /datum/attribute/skill/craft/weaponsmithing
 	created_item = /obj/item/weapon/greataxe/steel/rosacrush
 
