@@ -86,6 +86,19 @@
 	skillcraft = /datum/attribute/skill/craft/alchemy
 	craft_time = 4 SECONDS
 
+/datum/repeatable_crafting_recipe/projectile/pyro_bolt
+	name = "black briar arrow"
+	requirements = list(
+		/obj/item/ammo_casing/caseless/arrow = 1,
+		/obj/item/ore/cursedrosa = 1,
+	)
+	blacklisted_paths = list(/obj/item/ammo_casing/caseless/arrow/briar)
+	attacked_atom = /obj/item/ammo_casing/caseless/arrow
+	starting_atom = /obj/item/ore/cursedrosa
+	output = /obj/item/ammo_casing/caseless/arrow/briar
+	craftdiff = 4
+	craft_time = 1 SECONDS
+
 /datum/repeatable_crafting_recipe/projectile/vial_arrow
 	abstract_type = /datum/repeatable_crafting_recipe/projectile/vial_arrow
 	requirements = list(
