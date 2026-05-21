@@ -89,6 +89,30 @@
 	output = /obj/item/gravedecor/headstone/eora
 	craftdiff = 3
 
+/datum/repeatable_crafting_recipe/gravemaking/noccite_headstone
+	name = "noccite headstone"
+	requirements = list(
+		/obj/item/natural/stoneblock = 2,
+		/obj/item/natural/melded = 1,
+	)
+	attacked_atom = /obj/item/natural/stoneblock
+	starting_atom  = /obj/item/weapon/chisel
+	output = /obj/item/gravedecor/headstone/noc
+	craftdiff = 3
+
+/datum/repeatable_crafting_recipe/gravemaking/dendorite_headstone
+	name = "dendorite headstone"
+	allow_inverse_start = TRUE
+	requirements = list(
+		/obj/item/alch/bone = 2,
+		/obj/item/grown/log/tree/stake = 1,
+	)
+	attacked_atom = /obj/item/alch/bone
+	starting_atom  = /obj/item/grown/log/tree/stake
+	output = /obj/item/gravedecor/headstone/dendor
+	skillcraft = /datum/attribute/skill/craft/crafting
+	craftdiff = 2
+
 /datum/repeatable_crafting_recipe/gravemaking/hunt_headstone
 	name = "skull headstone"
 	allow_inverse_start = TRUE

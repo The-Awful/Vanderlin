@@ -174,8 +174,24 @@
 	desc = "Made for those TRULY dear departed."
 	icon_state = "headstone_eora"
 	dropshrink = 0.8
-	decorationquality = 3
+	decorationquality = 2
 	patrons = list(/datum/patron/divine/eora)
+
+/obj/item/gravedecor/headstone/dendor
+	name = "dendorite headstone"
+	desc = "Antlers from one hunted beast, placed to commemorate another."
+	icon_state = "headstone_dendor"
+	dropshrink = 0.8
+	decorationquality = 2
+	patrons = list(/datum/patron/divine/dendor)
+
+/obj/item/gravedecor/headstone/noc
+	name = "noccite headstone"
+	desc = "The moon of Noc, suspended with his magic."
+	icon_state = "headstone_noc"
+	dropshrink = 0.8
+	decorationquality = 3
+	patrons = list(/datum/patron/divine/noc)
 
 /obj/item/gravedecor/gravefence
 	name = "crude gravefence"
