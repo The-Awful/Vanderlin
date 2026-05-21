@@ -1,5 +1,5 @@
 /datum/antagonist/wretch
-	name = "Wretch"
+	name = ROLE_WRETCH
 	roundend_category = "Wretches"
 	job_rank = ROLE_WRETCH
 	antagpanel_category = "Wretches"
@@ -17,7 +17,6 @@
 	var/mob/living/carbon/human/W = owner.current
 	W.delete_equipment()
 	W.purge_combat_knowledge()
-	W.remove_all_languages()
 	owner.forget_and_be_forgotten()
 	move_to_spawnpoint()
 	. = ..()
@@ -33,8 +32,8 @@
 	owner?.special_role = null
 
 /datum/antagonist/wretch/move_to_spawnpoint()
-	var/spawn_point = get_spawn_turf_for_job("Adventurer")
+	var/spawn_point = get_spawn_turf_for_job(JOB_ADVENTURER)
 	if(spawn_point)
 		owner.current?.forceMove(spawn_point)
 	else
-		SSjob.SendToLateJoin(owner.current) // better run if this somehow happens
+		SSjob.SendToBackupPoint(owner.current) // better run if this somehow happens
