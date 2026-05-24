@@ -35,7 +35,7 @@
 
 	attribute_sheet = /datum/attribute_holder/sheet/job/migrant/zizo_cultist
 
-	traits = list(TRAIT_NOBLE_BLOOD, TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
+	traits = list(TRAIT_NOBLE_BLOOD, TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_GRAVEROBBER)
 	languages = list(/datum/language/undead)
 	cmode_music = 'sound/music/cmode/antag/combat_cult.ogg'
 	default_patron = /datum/patron/inhumen/zizo
@@ -93,7 +93,7 @@
 
 	attribute_sheet = /datum/attribute_holder/sheet/job/migrant/zizo_cultist_lesser
 
-	traits = list(TRAIT_MEDIUMARMOR, TRAIT_DUALWIELDER)
+	traits = list(TRAIT_MEDIUMARMOR, TRAIT_DUALWIELDER, TRAIT_GRAVEROBBER)
 	languages = list(/datum/language/undead)
 	cmode_music = 'sound/music/cmode/antag/combat_cult.ogg'
 	default_patron = /datum/patron/inhumen/zizo

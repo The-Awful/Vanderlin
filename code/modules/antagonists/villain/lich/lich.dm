@@ -57,6 +57,7 @@
 		TRAIT_HEAVYARMOR,
 		TRAIT_CABAL,
 		TRAIT_DEATHSIGHT,
+		TRAIT_GRAVEROBBER,
 	)
 
 	var/list/spells = list(

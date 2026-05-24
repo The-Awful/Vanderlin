@@ -20,6 +20,7 @@
 		TRAIT_SEEPRICES,
 		TRAIT_STEELHEARTED,
 		TRAIT_VILLAIN,
+		TRAIT_GRAVEROBBER
 	)
 
 /datum/antagonist/bandit/examine_friendorfoe(datum/antagonist/examined_datum, mob/examiner, mob/examined)
